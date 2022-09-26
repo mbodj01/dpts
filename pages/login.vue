@@ -58,6 +58,7 @@
 
 <script>
 export default {
+  name: 'LoginPage',
   layout: 'auth',
   data() {
     return {
@@ -77,14 +78,14 @@ export default {
           data: this.login,
         })
 
-        this.$router.push('/profil')
+        this.$router.push('/')
       } catch (err) {
+        this.loadingForm = false
         this.login.error = 'Login ou mot de passe incorrect.'
         if (err && typeof err.response === 'string') {
           this.login.error = err.response
         }
       }
-      this.loadingForm = false
     },
   },
 }

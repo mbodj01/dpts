@@ -140,7 +140,7 @@ export default {
           global: true,
         },
         user: {
-          property: 'user',
+          property: '',
         },
         endpoints: {
           login: {
@@ -151,7 +151,7 @@ export default {
             url: process.env.BASE_API_URL + '/logout',
             method: 'post',
           },
-          user: { url: process.env.BASE_API_URL + '/me', method: 'get' },
+          user: { url: process.env.BASE_API_URL + '/me', method: 'get'},
         },
       },
     },
