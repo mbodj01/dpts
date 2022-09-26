@@ -114,6 +114,7 @@
 
 <script>
 export default {
+  name: 'AuthComponent',
   head() {
     return {
       title: 'Se connecter | DPTS',

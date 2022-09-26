@@ -136,5 +136,10 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  mounted() {
+    if (window.feather) {
+      window.feather.replace({ width: 14, height: 14 })
+    }
+  },
 }
 </script>

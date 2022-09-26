@@ -43,7 +43,7 @@ export default {
         defer: '',
       },
       { src: '/vendors/js/pickers/flatpickr/flatpickr.min.js', defer: '' },
-      { src: '/js/scripts/tables/table-datatables-basic.min.js', defer: '' },
+      // { src: '/js/scripts/tables/table-datatables-basic.min.js', defer: '' },
     ],
     link: [
       { rel: 'shortcut icon', href: '/favicon.ico' },
@@ -129,7 +129,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'http://10.42.2.54:8070/api/',
   },
 
   auth: {
@@ -151,7 +151,7 @@ export default {
             url: process.env.BASE_API_URL + '/logout',
             method: 'post',
           },
-          user: { url: process.env.BASE_API_URL + '/me', method: 'get'},
+          user: { url: process.env.BASE_API_URL + '/me', method: 'get' },
         },
       },
     },
