@@ -257,4 +257,8 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  middleware: 'auth',
+}
+</script>
