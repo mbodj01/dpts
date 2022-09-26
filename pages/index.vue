@@ -75,6 +75,7 @@
 <script>
 export default {
   name: 'HomePage',
+  middleware: 'auth',
   head() {
     return {
       title: 'Tableau de board | DPTS',

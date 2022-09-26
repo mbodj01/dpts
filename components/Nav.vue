@@ -122,9 +122,9 @@
             class="dropdown-menu dropdown-menu-end"
             aria-labelledby="dropdown-user"
           >
-            <a class="dropdown-item" href="auth-login-cover.html"
-              ><i class="me-50" data-feather="power"></i> Logout</a
-            >
+            <a class="dropdown-item" href="#" @click="logout">
+              <i class="me-50" data-feather="power"></i> Se deconnecter
+            </a>
           </div>
         </li>
       </ul>
@@ -132,3 +132,14 @@
   </nav>
   <!-- END: Header-->
 </template>
+<script>
+export default {
+  name: 'NavComponant',
+  methods: {
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push('/login')
+    },
+  },
+}
+</script>
