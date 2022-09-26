@@ -1,17 +1,111 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'dpts',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'fr',
+      class: 'loading',
+      'data-textdirection': 'ltr',
     },
+    bodyAttrs: {
+      class: 'horizontal-layout horizontal-menu  navbar-floating footer-static',
+      'data-open': 'hover',
+      'data-menu': 'horizontal-menu',
+      'data-col': 'blank-page',
+    },
+    title: 'DPTS',
     meta: [
-      { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+      { title: 'DPTS' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      { src: '/vendors/js/vendors.min.js', defer: '' },
+      { src: '/vendors/js/ui/jquery.sticky.js', defer: '' },
+      { src: '/vendors/js/forms/validation/jquery.validate.min.js', defer: '' },
+      { src: '/js/core/app-menu.min.js', defer: '' },
+      { src: '/js/core/app.min.js', defer: '' },
+
+      // page accueil
+      {
+        src: '/vendors/js/tables/datatable/jquery.dataTables.min.js',
+        defer: '',
+      },
+      {
+        src: '/vendors/js/tables/datatable/dataTables.bootstrap5.min.js',
+        defer: '',
+      },
+      {
+        src: '/vendors/js/tables/datatable/dataTables.responsive.min.js',
+        defer: '',
+      },
+      {
+        src: '/vendors/js/tables/datatable/responsive.bootstrap5.js',
+        defer: '',
+      },
+      { src: '/vendors/js/pickers/flatpickr/flatpickr.min.js', defer: '' },
+      { src: '/js/scripts/tables/table-datatables-basic.min.js', defer: '' },
+    ],
+    link: [
+      { rel: 'shortcut icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/vendors/css/vendors.min.css',
+      },
+      { rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap.min.css' },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/css/bootstrap-extended.min.css',
+      },
+      { rel: 'stylesheet', type: 'text/css', href: '/css/colors.min.css' },
+      { rel: 'stylesheet', type: 'text/css', href: '/css/components.min.css' },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/css/themes/bordered-layout.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/css/core/menu/menu-types/horizontal-menu.min.css',
+      },
+
+      // page accueil
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/vendors/css/tables/datatable/dataTables.bootstrap5.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/vendors/css/tables/datatable/responsive.bootstrap5.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/vendors/css/pickers/flatpickr/flatpickr.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/css/plugins/forms/pickers/form-flat-pickr.min.css',
+      },
+    ],
+    // please note that this is an area that is likely to change
+    style: [
+      // <style type="text/css">:root { color: red }</style>
+      // { children: ':root { color: red }', type: 'text/css' }
+    ],
+    noscript: [
+      // <noscript>Javascript is required</noscript>
+      { children: 'Javascript is required' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
