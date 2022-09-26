@@ -63,8 +63,8 @@
                           transform="translate(400.000000, 178.000000)"
                         >
                           <path
-                            class="text-primary"
                             id="Path"
+                            class="text-primary"
                             d="M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z"
                             style="fill: currentColor"
                           ></path>
@@ -149,7 +149,7 @@
               </div>
             </div>
             <!-- Modal to add new record -->
-            <div class="modal modal-slide-in fade" id="modals-slide-in">
+            <div id="modals-slide-in" class="modal modal-slide-in fade">
               <div class="modal-dialog sidebar-sm">
                 <form class="add-new-record modal-content pt-0">
                   <button
@@ -161,7 +161,7 @@
                     ×
                   </button>
                   <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">
+                    <h5 id="exampleModalLabel" class="modal-title">
                       New Record
                     </h5>
                   </div>
@@ -173,9 +173,9 @@
                         >Full Name</label
                       >
                       <input
+                        id="basic-icon-default-fullname"
                         type="text"
                         class="form-control dt-full-name"
-                        id="basic-icon-default-fullname"
                         placeholder="John Doe"
                         aria-label="John Doe"
                       />
@@ -185,8 +185,8 @@
                         >Post</label
                       >
                       <input
-                        type="text"
                         id="basic-icon-default-post"
+                        type="text"
                         class="form-control dt-post"
                         placeholder="Web Developer"
                         aria-label="Web Developer"
@@ -197,8 +197,8 @@
                         >Email</label
                       >
                       <input
-                        type="text"
                         id="basic-icon-default-email"
+                        type="text"
                         class="form-control dt-email"
                         placeholder="john.doe@example.com"
                         aria-label="john.doe@example.com"
@@ -212,9 +212,9 @@
                         >Joining Date</label
                       >
                       <input
+                        id="basic-icon-default-date"
                         type="text"
                         class="form-control dt-date"
-                        id="basic-icon-default-date"
                         placeholder="MM/DD/YYYY"
                         aria-label="MM/DD/YYYY"
                       />
@@ -224,8 +224,8 @@
                         >Salary</label
                       >
                       <input
-                        type="text"
                         id="basic-icon-default-salary"
+                        type="text"
                         class="form-control dt-salary"
                         placeholder="$12000"
                         aria-label="$12000"
