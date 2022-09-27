@@ -106,8 +106,10 @@
             aria-expanded="false"
           >
             <div class="user-nav d-sm-flex d-none">
-              <span class="user-name fw-bolder">John Doe</span
-              ><span class="user-status">Admin</span>
+              <span class="user-name fw-bolder">
+                {{ $auth.user.prenom }} {{ $auth.user.nom }}
+              </span>
+              <span class="user-status">Admin</span>
             </div>
             <span class="avatar"
               ><img
