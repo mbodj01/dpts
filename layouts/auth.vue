@@ -143,7 +143,7 @@ export default {
           href: '/css/pages/authentication.css',
         },
       ],
-      script: [{ src: '/js/scripts/pages/auth-login.js', defer: '' }],
+      script: [{ src: '/js/scripts/pages/auth-login.js', defer: true }],
     }
   },
   mounted() {

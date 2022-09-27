@@ -19,31 +19,30 @@ export default {
       { title: 'DPTS' },
     ],
     script: [
-      { src: '/vendors/js/vendors.min.js', defer: '' },
-      { src: '/vendors/js/ui/jquery.sticky.js', defer: '' },
-      { src: '/vendors/js/forms/validation/jquery.validate.min.js', defer: '' },
-      { src: '/js/core/app-menu.min.js', defer: '' },
-      { src: '/js/core/app.min.js', defer: '' },
+      { src: '/vendors/js/vendors.min.js', defer: true },
+      { src: '/vendors/js/ui/jquery.sticky.js', defer: true },
+      { src: '/vendors/js/forms/validation/jquery.validate.min.js', defer: true },
+      { src: '/js/core/app-menu.min.js', defer: true },
+      { src: '/js/core/app.min.js', defer: true },
 
       // page accueil
       {
         src: '/vendors/js/tables/datatable/jquery.dataTables.min.js',
-        defer: '',
+        defer: true,
       },
       {
         src: '/vendors/js/tables/datatable/dataTables.bootstrap5.min.js',
-        defer: '',
+        defer: true,
       },
       {
         src: '/vendors/js/tables/datatable/dataTables.responsive.min.js',
-        defer: '',
+        defer: true,
       },
       {
         src: '/vendors/js/tables/datatable/responsive.bootstrap5.js',
-        defer: '',
+        defer: true,
       },
-      { src: '/vendors/js/pickers/flatpickr/flatpickr.min.js', defer: '' },
-      // { src: '/js/scripts/tables/table-datatables-basic.min.js', defer: '' },
+      { src: '/vendors/js/pickers/flatpickr/flatpickr.min.js', defer: true },
     ],
     link: [
       { rel: 'shortcut icon', href: '/favicon.ico' },

@@ -92,8 +92,8 @@ export default {
         },
       ],
       script: [
-        { src: '/vendors/js/charts/apexcharts.min.js', defer: '' },
-        { src: '/js/scripts/pages/dashboard-analytics.min.js', defer: '' },
+        { src: '/vendors/js/charts/apexcharts.min.js', defer: true },
+        { src: '/js/scripts/pages/dashboard-analytics.min.js', defer: true },
       ],
     }
   },

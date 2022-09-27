@@ -47,7 +47,6 @@
             :key="i"
             type="button"
             :class="['btn', action.classes]"
-            @click="action.do"
           >
             {{ action.title }}
           </button>
