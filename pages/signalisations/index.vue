@@ -132,13 +132,13 @@ export default {
       {
         title: 'Ajouter une nouvelle signalisation',
         classes: 'btn-outline-primary',
-        url: '/signalisation/form'
+        url: '/signalisations/form'
       },
     ])
     await this.$axios.$get('/signalisation/list').then((signalisations) => {
       signalisations = signalisations.map((signalisation) => {
         return [
-          signalisation.suspect.prenom + " "+ signalisation.suspect.nom,
+        `${signalisation.suspect.prenom} ${signalisation.suspect.nom}`,
           signalisation.motif_id,
           signalisation.lieu_signalisation ? signalisation.lieu_signalisation.libelle : " ",
           signalisation.service ? signalisation.service.libelle : " ",
