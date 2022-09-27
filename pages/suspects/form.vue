@@ -5,93 +5,136 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <div class="row">
-              <div class="col-6">
-                <div class="mb-1">
-                  <label class="form-label" for="prenom">Prénom</label>
-                  <input
-                    id="prenom"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter le prenom de la mise en cause"
-                  />
+            <form
+              action="#"
+              class="needs-validation"
+              novalidate
+              @submit.prevent="handleForm"
+            >
+              <div class="row">
+                <div class="col-6">
+                  <div class="mb-1">
+                    <label class="form-label" for="prenom">Prénom</label>
+                    <input
+                      id="prenom"
+                      v-model="payload.prenom"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le prenom de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="nom">Nom</label>
+                    <input
+                      id="nom"
+                      v-model="payload.nom"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le nom de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="pseudonyme"
+                      >Pseudonyme</label
+                    >
+                    <input
+                      id="pseudonyme"
+                      v-model="payload.pseudonyme"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le pseudonyme de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="genre"> Genre </label>
+                    <select
+                      id="genre"
+                      v-model="payload.sexe"
+                      required
+                      class="form-select"
+                    >
+                      <option value="masculin">Masculin</option>
+                      <option value="feminin">Feminin</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="date_naissance">
+                      Date de naissance
+                    </label>
+                    <input
+                      id="date_naissance"
+                      v-model="payload.date_naissance"
+                      type="text"
+                      class="form-control flatpickr-basic"
+                      placeholder="YYYY-MM-DD"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
                 </div>
-                <div class="mb-1">
-                  <label class="form-label" for="nom">Nom</label>
-                  <input
-                    id="nom"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter le nom de la mise en cause"
-                  />
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="pseudonyme">Pseudonyme</label>
-                  <input
-                    id="pseudonyme"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter le pseudonyme de la mise en cause"
-                  />
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="sex"> Genre </label>
-                  <select id="sex" class="form-select">
-                    <option>Masculin</option>
-                    <option>Feminin</option>
-                  </select>
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="date_naissance">
-                    Date de naissance
-                  </label>
-                  <input
-                    id="date_naissance"
-                    type="text"
-                    class="form-control flatpickr-basic"
-                    placeholder="YYYY-MM-DD"
-                  />
+                <div class="col-6">
+                  <div class="mb-1">
+                    <label class="form-label" for="taille">Taille</label>
+                    <input
+                      id="taille"
+                      v-model="payload.taille"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter la taille de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="profession"
+                      >Profession</label
+                    >
+                    <input
+                      id="profession"
+                      v-model="payload.profession"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter la profession de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="cni"
+                      >Numéro carte d'identité nationale</label
+                    >
+                    <input
+                      id="cni"
+                      v-model="payload.cni"
+                      type="text"
+                      class="form-control"
+                      placeholder="CNI de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="passport"
+                      >Numéro passport</label
+                    >
+                    <input
+                      id="passport"
+                      v-model="payload.passport"
+                      type="text"
+                      class="form-control"
+                      placeholder="Passport de la mise en cause"
+                    />
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Soumettre
+                  </button>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="mb-1">
-                  <label class="form-label" for="taille">Taille</label>
-                  <input
-                    id="taille"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter la taille de la mise en cause"
-                  />
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="profession">Profession</label>
-                  <input
-                    id="profession"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter la profession de la mise en cause"
-                  />
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="cni">Numéro carte d'identité nationale</label>
-                  <input
-                    id="cni"
-                    type="text"
-                    class="form-control"
-                    placeholder="CNI de la mise en cause"
-                  />
-                </div>
-                <div class="mb-1">
-                  <label class="form-label" for="passport">Numéro passport</label>
-                  <input
-                    id="passport"
-                    type="text"
-                    class="form-control"
-                    placeholder="Passport de la mise en cause"
-                  />
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -105,6 +148,11 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'FormSuspcets',
   middleware: 'auth',
+  data() {
+    return {
+      payload: {},
+    }
+  },
   head() {
     return {
       link: [
@@ -123,6 +171,10 @@ export default {
         {
           rel: 'stylesheet',
           href: 'https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css-rtl/plugins/forms/pickers/form-pickadate.min.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: '/css/plugins/forms/form-validation.css',
         },
       ],
       script: [
@@ -144,6 +196,10 @@ export default {
         },
         {
           src: '/js/scripts/forms/pickers/form-pickers.min.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/form-validation.js',
           defer: true,
         },
       ],
@@ -179,6 +235,9 @@ export default {
       setBreadcrumbs: 'setBreadcrumbs',
       setActions: 'setActions',
     }),
+    handleForm() {
+      console.log('this.payload ==>', this.payload)
+    },
   },
 }
 </script>
