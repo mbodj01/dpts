@@ -58,10 +58,17 @@ export default {
         },
       ],
     })
+    this.setActions([
+      {
+        title: 'Soumettre',
+        classes: 'btn-outline-primary',
+      },
+    ])
   },
   methods: {
     ...mapMutations({
       setBreadcrumbs: 'setBreadcrumbs',
+      setActions: 'setActions',
     }),
   },
 }

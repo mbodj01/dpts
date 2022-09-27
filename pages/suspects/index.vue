@@ -110,10 +110,31 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'ListSuspcets',
   middleware: 'auth',
   async mounted() {
+    this.setBreadcrumbs({
+      title: 'Mise en cause',
+      options: [
+        {
+          title: 'Accueil',
+          url: '/',
+        },
+        {
+          title: 'Mise en cause',
+        }
+      ],
+    })
+    this.setActions([
+      {
+        title: 'Ajouter une nouvelle mise en cause',
+        classes: 'btn-outline-primary',
+        url: '/suspects/form'
+      },
+    ])
     await this.$axios.$get('/suspect/list').then((suspects) => {
       suspects = suspects.map((suspect) => {
         return [
@@ -135,6 +156,12 @@ export default {
         ],
       })
     })
+  },
+  methods: {
+    ...mapMutations({
+      setBreadcrumbs: 'setBreadcrumbs',
+      setActions: 'setActions',
+    }),
   },
 }
 </script>

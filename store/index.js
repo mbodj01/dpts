@@ -1,5 +1,5 @@
 export const state = () => ({
-  breadcrumbs: [],
+  breadcrumbs: {},
   actions: [],
 })
 

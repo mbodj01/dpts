@@ -32,7 +32,25 @@
       v-if="actions"
       class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none"
     >
-      <div class="mb-1 breadcrumb-right"></div>
+      <div class="mb-1 breadcrumb-right">
+        <!-- <template v-for="(action, i) in actions">
+          <a
+            v-if="action.url"
+            :class="['btn', action.classes]"
+            :href="action.url"
+          >
+            {{ action.titre }}
+          </a>
+          <button
+            v-else
+            type="button"
+            :class="['btn', action.classes]"
+            @click="action.do"
+          >
+            {{ action.title }}
+          </button>
+        </template> -->
+      </div>
     </div>
   </div>
 </template>
