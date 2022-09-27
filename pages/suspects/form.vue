@@ -6,7 +6,7 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col-xl-4 col-md-6 col-12">
+              <div class="col-6">
                 <div class="mb-1">
                   <label class="form-label" for="prenom">Prénom</label>
                   <input
@@ -50,6 +50,44 @@
                     type="text"
                     class="form-control flatpickr-basic"
                     placeholder="YYYY-MM-DD"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-1">
+                  <label class="form-label" for="taille">Taille</label>
+                  <input
+                    id="taille"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter la taille de la mise en cause"
+                  />
+                </div>
+                <div class="mb-1">
+                  <label class="form-label" for="profession">Profession</label>
+                  <input
+                    id="profession"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter la profession de la mise en cause"
+                  />
+                </div>
+                <div class="mb-1">
+                  <label class="form-label" for="cni">Numéro carte d'identité nationale</label>
+                  <input
+                    id="cni"
+                    type="text"
+                    class="form-control"
+                    placeholder="CNI de la mise en cause"
+                  />
+                </div>
+                <div class="mb-1">
+                  <label class="form-label" for="passport">Numéro passport</label>
+                  <input
+                    id="passport"
+                    type="text"
+                    class="form-control"
+                    placeholder="Passport de la mise en cause"
                   />
                 </div>
               </div>
