@@ -19,7 +19,7 @@
         </a>
       </li>
       <li class="nav-item" data-menu="">
-        <a class="nav-link d-flex align-items-center" href="#">
+        <a class="nav-link d-flex align-items-center" href="/signalisations">
           <i data-feather="package"></i>
           <span data-i18n="Signalisations">Signalisations</span>
         </a>
