@@ -22,7 +22,7 @@
   import { mapMutations } from 'vuex'
   
   export default {
-    name: 'ListSuspcets',
+    name: 'ListLieux',
     middleware: 'auth',
     async mounted() {
       this.setBreadcrumbs({
@@ -33,7 +33,7 @@
             url: '/',
           },
           {
-            title: 'Administration',
+            title: 'Lieux de signalisation',
           }
         ],
       })
@@ -41,7 +41,7 @@
         {
           title: 'Ajouter un nouveau lieu',
           classes: 'btn-outline-primary',
-          url: '/suspects/form'
+          url: '/lieu/form'
         },
       ])
       await this.$axios.$get('/lieu_signalisation/list').then((lieux) => {
