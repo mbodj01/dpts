@@ -125,21 +125,20 @@ export default {
         },
         {
           title: 'Mise en cause',
-        }
+        },
       ],
     })
     this.setActions([
       {
         title: 'Ajouter une nouvelle mise en cause',
         classes: 'btn-outline-primary',
-        url: '/suspects/form'
+        url: '/suspects/form',
       },
     ])
     await this.$axios.$get('/suspect/list').then((suspects) => {
       suspects = suspects.map((suspect) => {
         return [
-          suspect.nom,
-          suspect.prenom,
+          `${suspect.prenom} ${suspect.nom}`,
           suspect.date_naissance,
           suspect.lieu_naissance,
           suspect.sexe,
@@ -147,9 +146,11 @@ export default {
       })
       window.$('#suspects').DataTable({
         data: suspects,
+        language: {
+          url: '/data/locales/fr-FR.json',
+        },
         columns: [
-          { title: 'Nom' },
-          { title: 'Prénom' },
+          { title: 'Suspects' },
           { title: 'Date de naissance' },
           { title: 'Lieu de naissance' },
           { title: 'Genre' },

@@ -53,6 +53,9 @@
         })
         window.$('#lieux').DataTable({
           data: lieux,
+          language: {
+          url: '/data/locales/fr-FR.json',
+        },
           columns: [
             { title: 'Libelle' },
             { title: 'Code' },

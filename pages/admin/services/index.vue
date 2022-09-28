@@ -139,6 +139,9 @@ export default {
       })
       window.$('#services').DataTable({
         data: services,
+        language: {
+          url: '/data/locales/fr-FR.json',
+        },
         columns: [{ title: 'code' }, { title: 'libelle' }],
       })
     })
