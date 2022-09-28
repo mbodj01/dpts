@@ -61,11 +61,11 @@
           <li class="dropdown" data-menu="">
             <a
               class="dropdown-item d-flex align-items-center"
-              href="table-datatable-advanced.html#"
+              href="/admin/services"
               data-i18n="Cards"
             >
               <i data-feather="credit-card"></i>
-              <span data-i18n="Cards">Cards</span>
+              <span data-i18n="Cards">Services</span>
             </a>
           </li>
         </ul>
