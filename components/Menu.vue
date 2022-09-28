@@ -48,7 +48,7 @@
           <li data-menu="">
             <a
               class="dropdown-item d-flex align-items-center"
-              href="#"
+              href="/admin/lieu"
               data-bs-toggle=""
               data-i18n="Feather"
             >
@@ -61,7 +61,7 @@
           <li class="dropdown" data-menu="">
             <a
               class="dropdown-item d-flex align-items-center"
-              href="table-datatable-advanced.html#"
+              href="#"
               data-i18n="Cards"
             >
               <i data-feather="credit-card"></i>
