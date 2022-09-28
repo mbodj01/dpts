@@ -37,7 +37,7 @@
           <li data-menu="">
             <a
               class="dropdown-item d-flex align-items-center"
-              href="#"
+              href="/admin/motifs"
               data-bs-toggle=""
               data-i18n="Typography"
             >
