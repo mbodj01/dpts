@@ -165,11 +165,11 @@
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary">
-                    Soumettre
+                    {{ editId ? 'Modifier' : 'Soumettre' }}
                   </button>
                 </div>
               </div>
-            </form>Prénom
+            </form>
           </div>
         </div>
       </div>
@@ -187,6 +187,7 @@ export default {
     return {
       payload: {},
       error: {},
+      editId: false,
     }
   },
   head() {
@@ -242,7 +243,11 @@ export default {
     }
   },
   computed: {},
-  mounted() {
+  async mounted() {
+    this.editId = this.$route.query.id
+    if (this.editId) {
+      await this.getSuspect()
+    }
     this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
       title: 'Mise en cause',
@@ -274,10 +279,23 @@ export default {
     }),
     async handleForm() {
       try {
-        await this.$axios.$post('/suspect/create', {
-          ...this.payload,
-        })
+        if (this.editId) {
+          await this.$axios.$put(`/suspect/update/${this.editId}`, {
+            ...this.payload,
+          })
+        } else {
+          await this.$axios.$post('/suspect/create', {
+            ...this.payload,
+          })
+        }
         this.$router.push('/suspects')
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
+    async getSuspect() {
+      try {
+        this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
       } catch ({ response }) {
         this.error = response.data
       }
