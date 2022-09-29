@@ -138,11 +138,15 @@ export default {
     await this.$axios.$get('/suspect/list').then((suspects) => {
       suspects = suspects.map((suspect) => {
         return [
-          suspect.nom,
-          suspect.prenom,
+          {
+            nom: suspect.nom,
+            prenom: suspect.prenom,
+            profession: suspect.profession,
+          },
           suspect.date_naissance,
           suspect.lieu_naissance,
-          suspect.sexe,
+          suspect.taille,
+          suspect.sexe === 'masculin' ? 'Masculin' : 'Feminin',
         ]
       })
       window.$('#suspects').DataTable({
@@ -151,11 +155,47 @@ export default {
         },
         data: suspects,
         columns: [
-          { title: 'Nom' },
-          { title: 'Prénom' },
+          {
+            title: 'Nom et prénom',
+            render(data) {
+              return `<div class="d-flex justify-content-left align-items-center">
+              <div class="avatar bg-light-warning  me-1">
+              <span class="avatar-content">U</span></div>
+              <div class="d-flex flex-column">
+              <span class="emp_name text-truncate fw-bold">${data.prenom} ${data.nom}</span><small class="emp_post text-truncate text-muted"> ${data.profession} </small></div></div>`
+            },
+          },
           { title: 'Date de naissance' },
           { title: 'Lieu de naissance' },
+          { title: 'Taille (en M)' },
           { title: 'Genre' },
+          {
+            title: 'actions',
+            data: null,
+            render(data) {
+              return (
+                '<div class="d-inline-flex"><a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown">' +
+                window.feather.icons['more-vertical'].toSvg({
+                  class: 'font-small-4',
+                }) +
+                '</a><div class="dropdown-menu dropdown-menu-end"><a href="javascript:;" class="dropdown-item">' +
+                window.feather.icons['file-text'].toSvg({
+                  class: 'font-small-4 me-50',
+                }) +
+                'Details</a><a href="javascript:;" class="dropdown-item">' +
+                window.feather.icons.archive.toSvg({
+                  class: 'font-small-4 me-50',
+                }) +
+                'Archive</a><a href="javascript:;" class="dropdown-item delete-record">' +
+                window.feather.icons['trash-2'].toSvg({
+                  class: 'font-small-4 me-50',
+                }) +
+                'Delete</a></div></div><a href="javascript:;" class="item-edit">' +
+                window.feather.icons.edit.toSvg({ class: 'font-small-4' }) +
+                '</a>'
+              )
+            },
+          },
         ],
       })
     })
