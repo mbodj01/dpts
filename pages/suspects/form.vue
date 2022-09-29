@@ -261,21 +261,16 @@ export default {
           url: '/suspects',
         },
         {
-          title: 'Formulaire de création',
+          title: this.editId
+            ? "Formulaire d'edition"
+            : 'Formulaire de création',
         },
       ],
     })
-    this.setActions([
-      {
-        title: 'Soumettre',
-        classes: 'btn-outline-primary',
-      },
-    ])
   },
   methods: {
     ...mapMutations({
       setBreadcrumbs: 'setBreadcrumbs',
-      setActions: 'setActions',
     }),
     async handleForm() {
       try {
