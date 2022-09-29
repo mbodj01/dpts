@@ -48,6 +48,9 @@ export default {
         return [motif.code, motif.libelle]
       })
       window.$('#motifs').DataTable({
+        language: {
+          url: '/data/locales/fr-FR.json',
+        },
         data: motifs,
         columns: [{ title: 'code' }, { title: 'motif' }],
       })

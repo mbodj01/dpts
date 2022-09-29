@@ -138,6 +138,9 @@ export default {
         return [service.code, service.libelle]
       })
       window.$('#services').DataTable({
+        language: {
+          url: '/data/locales/fr-FR.json',
+        },
         data: services,
         columns: [{ title: 'code' }, { title: 'libelle' }],
       })
@@ -151,4 +154,3 @@ export default {
   },
 }
 </script>
-

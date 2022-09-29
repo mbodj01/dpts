@@ -125,14 +125,14 @@ export default {
         },
         {
           title: 'Mise en cause',
-        }
+        },
       ],
     })
     this.setActions([
       {
         title: 'Ajouter une nouvelle mise en cause',
         classes: 'btn-outline-primary',
-        url: '/suspects/form'
+        url: '/suspects/form',
       },
     ])
     await this.$axios.$get('/suspect/list').then((suspects) => {
@@ -146,6 +146,9 @@ export default {
         ]
       })
       window.$('#suspects').DataTable({
+        language: {
+          url: '/data/locales/fr-FR.json',
+        },
         data: suspects,
         columns: [
           { title: 'Nom' },
