@@ -14,6 +14,22 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-1">
+                    <label class="form-label" for="civility"> Civilité </label>
+                    <select
+                      id="civility"
+                      v-model="payload.civilite"
+                      required
+                      class="form-select"
+                    >
+                      <option value="M.">M.</option>
+                      <option value="Mme">Mme</option>
+                      <option value="Mlle">Mlle</option>
+                    </select>
+                    <div v-if="error.civilite" class="invalid-feedback">
+                      {{ error.civilite[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
                     <label class="form-label" for="prenom">Prénom</label>
                     <input
                       id="prenom"
@@ -23,7 +39,9 @@
                       class="form-control"
                       placeholder="Enter le prenom de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.prenom" class="invalid-feedback">
+                      {{ error.prenom[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="nom">Nom</label>
@@ -35,12 +53,14 @@
                       class="form-control"
                       placeholder="Enter le nom de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.nom" class="invalid-feedback">
+                      {{ error.nom[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="pseudonyme"
-                      >Pseudonyme</label
-                    >
+                    <label class="form-label" for="pseudonyme">
+                      Pseudonyme
+                    </label>
                     <input
                       id="pseudonyme"
                       v-model="payload.pseudonyme"
@@ -48,7 +68,9 @@
                       class="form-control"
                       placeholder="Enter le pseudonyme de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.pseudonyme" class="invalid-feedback">
+                      {{ error.pseudonyme[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="genre"> Genre </label>
@@ -61,7 +83,9 @@
                       <option value="masculin">Masculin</option>
                       <option value="feminin">Feminin</option>
                     </select>
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.sexe" class="invalid-feedback">
+                      {{ error.sexe[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="date_naissance">
@@ -74,7 +98,9 @@
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.date_naissance" class="invalid-feedback">
+                      {{ error.date_naissance[0] }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-6">
@@ -88,7 +114,9 @@
                       class="form-control"
                       placeholder="Enter la taille de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.taille" class="invalid-feedback">
+                      {{ error.taille[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="profession"
@@ -98,10 +126,13 @@
                       id="profession"
                       v-model="payload.profession"
                       type="text"
+                      required
                       class="form-control"
                       placeholder="Enter la profession de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.profession" class="invalid-feedback">
+                      {{ error.profession[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="cni"
@@ -114,7 +145,9 @@
                       class="form-control"
                       placeholder="CNI de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.cni" class="invalid-feedback">
+                      {{ error.cni[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="passport"
@@ -127,14 +160,16 @@
                       class="form-control"
                       placeholder="Passport de la mise en cause"
                     />
-                    <div class="invalid-feedback"></div>
+                    <div v-if="error.passport" class="invalid-feedback">
+                      {{ error.passport[0] }}
+                    </div>
                   </div>
                   <button type="submit" class="btn btn-primary">
                     Soumettre
                   </button>
                 </div>
               </div>
-            </form>
+            </form>Prénom
           </div>
         </div>
       </div>
@@ -151,6 +186,7 @@ export default {
   data() {
     return {
       payload: {},
+      error: {},
     }
   },
   head() {
@@ -207,6 +243,7 @@ export default {
   },
   computed: {},
   mounted() {
+    this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
       title: 'Mise en cause',
       options: [
@@ -235,8 +272,15 @@ export default {
       setBreadcrumbs: 'setBreadcrumbs',
       setActions: 'setActions',
     }),
-    handleForm() {
-      console.log('this.payload ==>', this.payload)
+    async handleForm() {
+      try {
+        await this.$axios.$post('/suspect/create', {
+          ...this.payload,
+        })
+        this.$router.push('/suspects')
+      } catch ({ response }) {
+        this.error = response.data
+      }
     },
   },
 }

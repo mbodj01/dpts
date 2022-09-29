@@ -21,7 +21,10 @@ export default {
     script: [
       { src: '/vendors/js/vendors.min.js', defer: true },
       { src: '/vendors/js/ui/jquery.sticky.js', defer: true },
-      { src: '/vendors/js/forms/validation/jquery.validate.min.js', defer: true },
+      {
+        src: '/vendors/js/forms/validation/jquery.validate.min.js',
+        defer: true,
+      },
       { src: '/js/core/app-menu.min.js', defer: true },
       { src: '/js/core/app.min.js', defer: true },
 
