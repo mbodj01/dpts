@@ -11,7 +11,43 @@
               novalidate
               @submit.prevent="handleForm"
             >
-              <div class="row">
+              <div class="row mb-2">
+                <div class="col-6">
+                  <!-- header section -->
+                  <div class="d-flex">
+                    <a href="page-account-settings-account.html#" class="me-25">
+                      <img
+                        id="account-upload-img"
+                        src="/images/suspect.png"
+                        class="uploadedAvatar rounded me-50"
+                        alt="profile image"
+                        height="100"
+                        width="100"
+                      />
+                    </a>
+                    <!-- upload and reset button -->
+                    <div class="d-flex align-items-end mt-75 ms-1">
+                      <div>
+                        <label
+                          for="account-upload"
+                          class="btn btn-sm btn-primary mb-75 me-75"
+                          >Charger la photo</label
+                        >
+                        <input
+                          id="account-upload"
+                          type="file"
+                          hidden
+                          accept="image/*"
+                        />
+                        <p class="mb-0">Extentions: png, jpg, jpeg.</p>
+                      </div>
+                    </div>
+                    <!--/ upload and reset button -->
+                  </div>
+                  <!--/ header section -->
+                </div>
+              </div>
+              <div class="row mb-1">
                 <div class="col-6">
                   <div class="mb-1">
                     <label class="form-label" for="civility"> Civilité </label>
@@ -164,6 +200,10 @@
                       {{ error.passport[0] }}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary">
                     {{ editId ? 'Modifier' : 'Soumettre' }}
                   </button>
