@@ -25,14 +25,14 @@ export default {
   middleware: 'auth',
   async mounted() {
     this.setBreadcrumbs({
-      title: 'motifs',
+      title: 'Motifs',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'motifs',
+          title: 'Motifs',
         },
       ],
     })
@@ -40,7 +40,7 @@ export default {
       {
         title: 'Ajouter un nouveau motif',
         classes: 'btn-outline-primary',
-        url: '/suspects/form',
+        url: '/admin/motifs/form',
       },
     ])
     await this.$axios.$get('/motif/list').then((motifs) => {
