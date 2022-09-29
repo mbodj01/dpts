@@ -25,14 +25,14 @@ export default {
   middleware: 'auth',
   async mounted() {
     this.setBreadcrumbs({
-      title: 'motifs',
+      title: 'Motifs',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'motifs',
+          title: 'Motifs',
         },
       ],
     })
