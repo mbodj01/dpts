@@ -7,7 +7,7 @@
     <div class="navbar-header d-xl-block d-none">
       <ul class="nav navbar-nav">
         <li class="nav-item">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             <span class="brand-logo">
               <img src="/images/senegal.png" alt="logo dpts" srcset="" />
             </span>
