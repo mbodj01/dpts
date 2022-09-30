@@ -36,7 +36,7 @@ export default {
       {
         title: 'Ajouter un nouveau lieu',
         classes: 'btn-outline-primary',
-        url: '/lieu/form',
+        url: '/admin/lieu/form',
       },
     ])
     await this.$axios.$get('/lieu_signalisation/list').then((lieux) => {
