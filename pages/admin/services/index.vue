@@ -115,14 +115,14 @@ export default {
   middleware: 'auth',
   async mounted() {
     this.setBreadcrumbs({
-      title: 'services',
+      title: 'Services',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'services',
+          title: 'Services',
         },
       ],
     })
@@ -130,7 +130,7 @@ export default {
       {
         title: 'Ajouter un nouveau service',
         classes: 'btn-outline-primary',
-        url: '/suspects/form',
+        url: '/admin/services/form',
       },
     ])
     await this.$axios.$get('/service/list').then((services) => {
