@@ -146,7 +146,7 @@
               ...this.payload,
             })
           }
-          this.$router.push('/admin/service')
+          this.$router.push('/admin/services')
         } catch ({ response }) {
           this.error = response.data
         }
