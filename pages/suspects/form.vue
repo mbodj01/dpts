@@ -222,7 +222,7 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'FormSuspcets',
-  middleware: 'auth',
+  // middleware: 'auth',
   data() {
     return {
       payload: {},
@@ -288,7 +288,7 @@ export default {
     if (this.editId) {
       await this.getSuspect()
     }
-    this.payload.user_id = this.$auth.user.id
+    // this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
       title: 'Mise en cause',
       options: [
