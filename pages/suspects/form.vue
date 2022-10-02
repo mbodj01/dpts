@@ -15,7 +15,7 @@
                 <div class="col-6">
                   <!-- header section -->
                   <div class="d-flex">
-                    <a href="page-account-settings-account.html#" class="me-25">
+                    <a href="#" class="me-25">
                       <img
                         id="account-upload-img"
                         src="/images/suspect.png"

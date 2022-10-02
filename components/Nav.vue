@@ -17,6 +17,15 @@
       </ul>
     </div>
     <div class="navbar-container d-flex content">
+      <div class="bookmark-wrapper d-flex align-items-center">
+        <ul class="nav navbar-nav d-xl-none">
+          <li class="nav-item">
+            <a class="nav-link menu-toggle" href="table-datatable-basic.html#"
+              ><i class="ficon" data-feather="menu"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
       <ul class="nav navbar-nav align-items-center ms-auto">
         <li class="nav-item dropdown dropdown-user">
           <a
@@ -29,7 +38,7 @@
           >
             <div class="user-nav d-sm-flex d-none">
               <span class="user-name fw-bolder">
-                {{ $auth.user.prenom }} {{ $auth.user.nom }}
+                {{ $auth.user?.prenom }} {{ $auth.user?.nom }}
               </span>
               <span class="user-status">Admin</span>
             </div>
