@@ -46,36 +46,26 @@
               <div class="info-container">
                 <ul class="list-unstyled">
                   <li class="mb-75">
-                    <span class="fw-bolder me-25">Username:</span>
-                    <span>violet.dev</span>
+                    <span class="fw-bolder me-25">Pseudonyme:</span>
+                    <span>{pseudonyme}</span>
                   </li>
                   <li class="mb-75">
-                    <span class="fw-bolder me-25">Billing Email:</span>
-                    <span>vafgot@vultukir.org</span>
+                    <span class="fw-bolder me-25">Date de naissance:</span>
+                    <span>{Date de naissance}</span>
                   </li>
                   <li class="mb-75">
-                    <span class="fw-bolder me-25">Status:</span>
-                    <span class="badge bg-light-success">Active</span>
+                    <span class="fw-bolder me-25">Lieu de naissance:</span>
+                    <span>{Lieu de naissance}</span>
                   </li>
                   <li class="mb-75">
-                    <span class="fw-bolder me-25">Role:</span>
-                    <span>Author</span>
+                    <span class="fw-bolder me-25"
+                      >Numéro carte d'identité:</span
+                    >
+                    <span>{Numéro carte d'identité}</span>
                   </li>
                   <li class="mb-75">
-                    <span class="fw-bolder me-25">Tax ID:</span>
-                    <span>Tax-8965</span>
-                  </li>
-                  <li class="mb-75">
-                    <span class="fw-bolder me-25">Contact:</span>
-                    <span>+1 (609) 933-44-22</span>
-                  </li>
-                  <li class="mb-75">
-                    <span class="fw-bolder me-25">Language:</span>
-                    <span>English</span>
-                  </li>
-                  <li class="mb-75">
-                    <span class="fw-bolder me-25">Country:</span>
-                    <span>Wake Island</span>
+                    <span class="fw-bolder me-25">Numéro passeport:</span>
+                    <span>{Numéro passeport}</span>
                   </li>
                 </ul>
                 <div class="d-flex justify-content-center pt-2">
@@ -110,76 +100,24 @@
                       class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1"
                     >
                       <h6>User login</h6>
-                      <span class="timeline-event-time me-1">12 min ago</span>
+                      <span class="timeline-event-time me-1">
+                        {date signalisation}
+                      </span>
                     </div>
-                    <p>User login at 2:12pm</p>
-                  </div>
-                </li>
-                <li class="timeline-item">
-                  <span
-                    class="timeline-point timeline-point-warning timeline-point-indicator"
-                  ></span>
-                  <div class="timeline-event">
-                    <div
-                      class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1"
-                    >
-                      <h6>Meeting with john</h6>
-                      <span class="timeline-event-time me-1">45 min ago</span>
-                    </div>
-                    <p>React Project meeting with john @10:15am</p>
-                    <div class="d-flex flex-row align-items-center mb-50">
-                      <div class="avatar me-50">
-                        <img
-                          src="/images/portrait/small/avatar-s-7.jpg"
-                          alt="Avatar"
-                          width="38"
-                          height="38"
-                        />
-                      </div>
-                      <div class="user-info">
-                        <h6 class="mb-0">Leona Watkins (Client)</h6>
-                        <p class="mb-0">CEO of pixinvent</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="timeline-item">
-                  <span
-                    class="timeline-point timeline-point-info timeline-point-indicator"
-                  ></span>
-                  <div class="timeline-event">
-                    <div
-                      class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1"
-                    >
-                      <h6>Create a new react project for client</h6>
-                      <span class="timeline-event-time me-1">2 day ago</span>
-                    </div>
-                    <p>Add files to new design folder</p>
-                  </div>
-                </li>
-                <li class="timeline-item">
-                  <span
-                    class="timeline-point timeline-point-danger timeline-point-indicator"
-                  ></span>
-                  <div class="timeline-event">
-                    <div
-                      class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1"
-                    >
-                      <h6>Create Invoices for client</h6>
-                      <span class="timeline-event-time me-1">12 min ago</span>
-                    </div>
-                    <p class="mb-0">
-                      Create new Invoices and send to Leona Watkins
-                    </p>
-                    <div class="d-flex flex-row align-items-center mt-50">
-                      <img
-                        class="me-1"
-                        src="/images/icons/pdf.png"
-                        alt="data.json"
-                        height="25"
-                      />
-                      <h6 class="mb-0">Invoices.pdf</h6>
-                    </div>
+                    <ul>
+                      <li>
+                        <p>
+                          <span class="fw-b">Infractions:</span>
+                          <span>{motif1} - {motif2} - {motif3}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span class="fw-b">Lieux de signalisation:</span>
+                          <span>{lieu de signalisation}</span>
+                        </p>
+                      </li>
+                    </ul>
                   </div>
                 </li>
               </ul>
