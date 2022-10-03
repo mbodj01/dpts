@@ -1,16 +1,11 @@
 <template>
   <!-- Basic Inputs start -->
   <section id="basic-input">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <form
-              action="#"
-              class="needs-validation"
-              novalidate
-              @submit.prevent="handleForm"
-            >
+    <form action="#" novalidate @submit.prevent="handleForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
               <div class="row mb-2">
                 <div class="col-6">
                   <!-- header section -->
@@ -25,30 +20,22 @@
                         width="100"
                       />
                     </a>
-                    <!-- upload and reset button -->
-                    <div class="d-flex align-items-end mt-75 ms-1">
-                      <div>
-                        <label
-                          for="account-upload"
-                          class="btn btn-sm btn-primary mb-75 me-75"
-                          >Charger la photo</label
-                        >
-                        <input
-                          id="account-upload"
-                          type="file"
-                          hidden
-                          accept="image/*"
-                        />
-                        <p class="mb-0">Extentions: png, jpg, jpeg.</p>
-                      </div>
-                    </div>
-                    <!--/ upload and reset button -->
                   </div>
                   <!--/ header section -->
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-6">
+                  <div class="mb-1">
+                    <label class="form-label" for="select2-basic">Basic</label>
+                    <select id="select2-basic" class="select2 form-select">
+                      <option value="AK">Alaska</option>
+                      <option value="HI">Hawaii</option>
+                      <option value="CA">California</option>
+                      <option value="NV">Nevada</option>
+                      <option value="OR">Oregon</option>
+                    </select>
+                  </div>
                   <div class="mb-1">
                     <label class="form-label" for="civility"> Civilité </label>
                     <select
@@ -63,34 +50,6 @@
                     </select>
                     <div v-if="error.civilite" class="invalid-feedback">
                       {{ error.civilite[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="prenom">Prénom</label>
-                    <input
-                      id="prenom"
-                      v-model="payload.prenom"
-                      required
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le prenom de la mise en cause"
-                    />
-                    <div v-if="error.prenom" class="invalid-feedback">
-                      {{ error.prenom[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="nom">Nom</label>
-                    <input
-                      id="nom"
-                      v-model="payload.nom"
-                      required
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le nom de la mise en cause"
-                    />
-                    <div v-if="error.nom" class="invalid-feedback">
-                      {{ error.nom[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -202,6 +161,45 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-1">
+                <div class="col-12">
+                  <div class="col-md-6 mb-1">
+                    <label class="form-label" for="select2-multiple">
+                      Multiple
+                    </label>
+                    <select
+                      id="select2-multiple"
+                      v-model="ok"
+                      class="select2 form-select"
+                      multiple
+                    >
+                      <optgroup label="Central Time Zone">
+                        <option value="AL">Alabama</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TX">Texas</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="WI">Wisconsin</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-12 d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary">
@@ -209,11 +207,11 @@
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </section>
   <!-- Basic Inputs end -->
 </template>
@@ -221,18 +219,21 @@
 <script>
 import { mapMutations } from 'vuex'
 export default {
-  name: 'FormSuspcets',
+  name: 'FormSignalisation',
   middleware: 'auth',
   data() {
     return {
-      payload: {},
+      ok: [],
+      payload: {
+        motifs: [],
+      },
       error: {},
       editId: false,
     }
   },
   head() {
     return {
-      title: 'Formulaire mise en cause | DPTS',
+      title: 'Formulaire signalisation | DPTS',
       link: [
         {
           rel: 'stylesheet',
@@ -253,6 +254,10 @@ export default {
         {
           rel: 'stylesheet',
           href: '/css/plugins/forms/form-validation.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: '/css/forms/select/select2.min.css',
         },
       ],
       script: [
@@ -280,11 +285,34 @@ export default {
           src: '/js/scripts/forms/form-validation.js',
           defer: true,
         },
+        {
+          src: '/js/forms/select/select2.full.min.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/form-select2.min.js',
+          defer: true,
+        },
       ],
     }
   },
   computed: {},
+  watch: {
+    ok(v) {
+      console.log('v ==>', v)
+    },
+  },
   async mounted() {
+    window
+      .$('#select2-multiple')
+      .on('select2:select', (e) => {
+        console.log('e.params.data ==>', e.params.data)
+        this.payload.motifs.push(e.params.data)
+      })
+      .on('select2:unselecting', (e) => {
+        // Do something
+        console.log('e.params.data ==>', e.params.data)
+      })
     this.editId = this.$route.query.id
     if (this.editId) {
       await this.getSuspect()
@@ -314,6 +342,7 @@ export default {
       setBreadcrumbs: 'setBreadcrumbs',
     }),
     async handleForm() {
+      console.log('this.ok ==>', this.ok)
       try {
         if (this.editId) {
           await this.$axios.$put(`/suspect/update/${this.editId}`, {

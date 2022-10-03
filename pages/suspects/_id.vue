@@ -133,12 +133,20 @@
 <script>
 import { mapMutations } from 'vuex'
 export default {
+  data() {
+    return {
+      suspectId: null,
+      suspect: null,
+    }
+  },
   head() {
     return {
       title: 'Profil mise en cause | DPTS',
     }
   },
   mounted() {
+    const suspectId = this.$route.params.id
+    console.log('this.params.id ==>', suspectId)
     this.setBreadcrumbs({
       title: 'Profil mise en cause',
       options: [
@@ -163,6 +171,15 @@ export default {
     ...mapMutations({
       setBreadcrumbs: 'setBreadcrumbs',
     }),
+    async getSuspect() {
+      try {
+        this.suspect = await this.$axios.$get(
+          `/suspect/detail/${this.suspectId}`
+        )
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
   },
 }
 </script>
