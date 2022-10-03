@@ -15,7 +15,7 @@
                 <div class="col-6">
                   <!-- header section -->
                   <div class="d-flex">
-                    <a href="page-account-settings-account.html#" class="me-25">
+                    <a href="#" class="me-25">
                       <img
                         id="account-upload-img"
                         src="/images/suspect.png"
@@ -222,7 +222,7 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'FormSuspcets',
-  middleware: 'auth',
+  // middleware: 'auth',
   data() {
     return {
       payload: {},
@@ -288,7 +288,7 @@ export default {
     if (this.editId) {
       await this.getSuspect()
     }
-    this.payload.user_id = this.$auth.user.id
+    // this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
       title: 'Mise en cause',
       options: [

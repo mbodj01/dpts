@@ -16,7 +16,7 @@
                 <span class="brand-logo">
                   <img src="/images/senegal.png" alt="logo dpts" srcset="" />
                 </span>
-                <h2 class="brand-text mb-0">Vuexy</h2>
+                <h2 class="brand-text mb-0">DPTS</h2>
               </a>
             </li>
             <li class="nav-item nav-toggle">
@@ -63,3 +63,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.__nuxt-error-page {
+  position: relative;
+}
+</style>
