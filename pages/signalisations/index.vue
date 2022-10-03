@@ -143,7 +143,7 @@ export default {
             prenom: signalisation.suspect.prenom,
             profession: signalisation.suspect.profession,
           },
-          signalisation.motif_id,
+          signalisation.motifs.map(x => x.libelle).join(' - '),
           signalisation.lieu_signalisation
             ? signalisation.lieu_signalisation.libelle
             : ' ',
