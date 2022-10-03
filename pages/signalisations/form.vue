@@ -175,7 +175,6 @@
                     </label>
                     <select
                       id="select2-multiple"
-                      v-model="ok"
                       class="select2 form-select"
                       multiple
                     >
@@ -306,12 +305,15 @@ export default {
     window
       .$('#select2-multiple')
       .on('select2:select', (e) => {
-        console.log('e.params.data ==>', e.params.data)
-        this.payload.motifs.push(e.params.data)
+        if (!this.payload.motifs.includes(e.target.value)) {
+          this.payload.motifs.push(e.target.value)
+        }
       })
       .on('select2:unselecting', (e) => {
-        // Do something
-        console.log('e.params.data ==>', e.params.data)
+        const index = this.payload.motifs.indexOf(e.target.value)
+        if (index > -1) {
+          this.payload.motifs.splice(index, 1)
+        }
       })
     this.editId = this.$route.query.id
     if (this.editId) {
@@ -342,7 +344,6 @@ export default {
       setBreadcrumbs: 'setBreadcrumbs',
     }),
     async handleForm() {
-      console.log('this.ok ==>', this.ok)
       try {
         if (this.editId) {
           await this.$axios.$put(`/suspect/update/${this.editId}`, {
