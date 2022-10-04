@@ -73,7 +73,7 @@
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter le prenom de la mise en cause"
+                      placeholder="Enter le prenom du mis en cause"
                     />
                     <div v-if="error.prenom" class="invalid-feedback">
                       {{ error.prenom[0] }}
@@ -87,7 +87,7 @@
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter le nom de la mise en cause"
+                      placeholder="Enter le nom du mis en cause"
                     />
                     <div v-if="error.nom" class="invalid-feedback">
                       {{ error.nom[0] }}
@@ -102,7 +102,7 @@
                       v-model="payload.pseudonyme"
                       type="text"
                       class="form-control"
-                      placeholder="Enter le pseudonyme de la mise en cause"
+                      placeholder="Enter le pseudonyme du mis en cause"
                     />
                     <div v-if="error.pseudonyme" class="invalid-feedback">
                       {{ error.pseudonyme[0] }}
@@ -148,7 +148,7 @@
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter la taille de la mise en cause"
+                      placeholder="Enter la taille du mis en cause"
                     />
                     <div v-if="error.taille" class="invalid-feedback">
                       {{ error.taille[0] }}
@@ -164,7 +164,7 @@
                       type="text"
                       required
                       class="form-control"
-                      placeholder="Enter la profession de la mise en cause"
+                      placeholder="Enter la profession du mis en cause"
                     />
                     <div v-if="error.profession" class="invalid-feedback">
                       {{ error.profession[0] }}
@@ -179,7 +179,7 @@
                       v-model="payload.cni"
                       type="text"
                       class="form-control"
-                      placeholder="CNI de la mise en cause"
+                      placeholder="CNI du mis en cause"
                     />
                     <div v-if="error.cni" class="invalid-feedback">
                       {{ error.cni[0] }}
@@ -194,7 +194,7 @@
                       v-model="payload.passport"
                       type="text"
                       class="form-control"
-                      placeholder="Passport de la mise en cause"
+                      placeholder="Passport du mis en cause"
                     />
                     <div v-if="error.passport" class="invalid-feedback">
                       {{ error.passport[0] }}
@@ -232,7 +232,7 @@ export default {
   },
   head() {
     return {
-      title: 'Formulaire mise en cause | DPTS',
+      title: 'Formulaire mis en cause | DPTS',
       link: [
         {
           rel: 'stylesheet',
@@ -291,14 +291,14 @@ export default {
     }
     this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
-      title: 'Mise en cause',
+      title: 'mis en cause',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'Mise en cause',
+          title: 'mis en cause',
           url: '/suspects',
         },
         {

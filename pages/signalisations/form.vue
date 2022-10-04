@@ -64,7 +64,7 @@
                       disabled
                       type="text"
                       class="form-control"
-                      placeholder="Enter le pseudonyme de la mise en cause"
+                      placeholder="Enter le pseudonyme du mis en cause"
                     />
                   </div>
                   <div class="mb-1">
@@ -75,7 +75,7 @@
                       disabled
                       type="text"
                       class="form-control"
-                      placeholder="Enter le genre de la mise en cause"
+                      placeholder="Enter le genre du mis en cause"
                     />
                   </div>
                   <div class="mb-1">
@@ -101,7 +101,7 @@
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter la taille de la mise en cause"
+                      placeholder="Enter la taille du mis en cause"
                     />
                   </div>
                   <div class="mb-1">
@@ -114,7 +114,7 @@
                       type="text"
                       required
                       class="form-control"
-                      placeholder="Enter la profession de la mise en cause"
+                      placeholder="Enter la profession du mis en cause"
                     />
                   </div>
                   <div class="mb-1">
@@ -126,7 +126,7 @@
                       v-model="suspect.cni"
                       type="text"
                       class="form-control"
-                      placeholder="CNI de la mise en cause"
+                      placeholder="CNI du mis en cause"
                     />
                   </div>
                   <div class="mb-1">
@@ -138,7 +138,7 @@
                       v-model="suspect.passport"
                       type="text"
                       class="form-control"
-                      placeholder="Passport de la mise en cause"
+                      placeholder="Passport du mis en cause"
                     />
                   </div>
                 </div>
@@ -309,14 +309,14 @@ export default {
     }
     this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
-      title: 'Mise en cause',
+      title: 'mis en cause',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'Mise en cause',
+          title: 'mis en cause',
           url: '/suspects',
         },
         {

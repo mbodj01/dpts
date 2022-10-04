@@ -122,20 +122,20 @@ export default {
   },
   async mounted() {
     this.setBreadcrumbs({
-      title: 'Mise en cause',
+      title: 'mis en cause',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'Mise en cause',
+          title: 'mis en cause',
         },
       ],
     })
     this.setActions([
       {
-        title: 'Ajouter une nouvelle mise en cause',
+        title: 'Ajouter une nouvelle mis en cause',
         classes: 'btn-outline-primary',
         url: '/suspects/form',
       },

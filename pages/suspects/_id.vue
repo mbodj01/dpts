@@ -100,7 +100,7 @@
         <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
           <!-- Activity Timeline -->
           <div class="card">
-            <h4 class="card-header">Antécédents de la mise en cause</h4>
+            <h4 class="card-header">Antécédents du mis en cause</h4>
             <div class="card-body pt-1">
               <ul class="timeline ms-50">
                 <li class="timeline-item">
@@ -151,25 +151,25 @@ export default {
   },
   head() {
     return {
-      title: 'Profil mise en cause | DPTS',
+      title: 'Profil mis en cause | DPTS',
     }
   },
   async mounted() {
     this.suspectId = this.$route.params.id
     await this.getSuspect()
     this.setBreadcrumbs({
-      title: 'Profil mise en cause',
+      title: 'Profil mis en cause',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'Mise en cause',
+          title: 'mis en cause',
           url: '/suspects',
         },
         {
-          title: 'Détail {{ nom mise en cause}}',
+          title: `Détail ${this.suspect.prenom} ${this.suspect.nom}`,
         },
       ],
     })

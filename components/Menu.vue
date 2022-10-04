@@ -15,7 +15,7 @@
       <li class="nav-item" data-menu="">
         <a class="nav-link d-flex align-items-center" href="/suspects">
           <i data-feather="package"></i>
-          <span data-i18n="Mise en cause">Mises en cause</span>
+          <span data-i18n="mis en cause">Mises en cause</span>
         </a>
       </li>
       <li class="nav-item" data-menu="">
