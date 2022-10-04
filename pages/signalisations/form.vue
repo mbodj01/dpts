@@ -196,6 +196,17 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-12">
+                  <label class="form-label" for="detail">
+                    Informations supplémentaires sur la signalisation
+                  </label>
+                  <textarea
+                    id="detail"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Informations supplémentaires sur la signalisation"
+                  ></textarea>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12 d-flex justify-content-end">
