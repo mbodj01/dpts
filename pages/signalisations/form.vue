@@ -175,21 +175,29 @@
                   </div>
                   <div class="col-md-12 mb-1">
                     <div class="row">
-                      <div class="col-6">
-                        <span>Le:</span>
-                        <span>
-                          {{ new Date().toLocaleDateString('fr-FR') }}
-                        </span>
+                      <div class="col-6 d-flex align-items-center gap-1">
+                        <label class="form-label" for="pseudonyme"> Le: </label>
+                        <input
+                          id="pseudonyme"
+                          v-model="payload.date_signalisation"
+                          disabled
+                          type="text"
+                          class="form-control"
+                        />
                       </div>
                       <div class="col-6 d-flex align-items-center gap-1">
                         <label class="form-label" for="civility"> à </label>
-                        <select required class="form-select">
+                        <select
+                          v-model="payload.lieu_signalisation_id"
+                          required
+                          class="form-select"
+                        >
                           <option
                             v-for="department in departments"
-                            :key="department"
-                            :value="department"
+                            :key="department[0]"
+                            :value="department[0]"
                           >
-                            {{ department }}
+                            {{ department[1] }}
                           </option>
                         </select>
                       </div>
@@ -202,6 +210,7 @@
                   </label>
                   <textarea
                     id="detail"
+                    v-model="payload.commentaires"
                     class="form-control"
                     rows="3"
                     placeholder="Informations supplémentaires sur la signalisation"
@@ -236,7 +245,8 @@ export default {
       departments: [],
       suspect: {},
       payload: {
-        motifs: [],
+        date_signalisation: '2022-01-01',
+        motif_ids: [],
       },
       error: {},
       editId: false,
@@ -324,21 +334,20 @@ export default {
     window
       .$('#select2-multiple')
       .on('select2:select', (e) => {
-        if (!this.payload.motifs.includes(e.target.value)) {
-          this.payload.motifs.push(e.target.value)
+        if (!this.payload.motif_ids.includes(e.params.data.id)) {
+          this.payload.motif_ids.push(e.params.data.id)
         }
       })
       .on('select2:unselecting', (e) => {
-        const index = this.payload.motifs.indexOf(e.target.value)
+        const index = this.payload.motif_ids.indexOf(e.target.value)
         if (index > -1) {
-          this.payload.motifs.splice(index, 1)
+          this.payload.motif_ids.splice(index, 1)
         }
       })
     this.editId = this.$route.query.id
     if (this.editId) {
       await this.getSuspect()
     }
-    this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
       title: 'mis en cause',
       options: [
@@ -364,16 +373,20 @@ export default {
     }),
     async handleForm() {
       try {
+        this.payload.user_id = this.$auth.user.id
+        this.payload.service_id = this.$auth.user.service_id
+        this.payload.suspect_id = this.suspect.id
+        console.log('this.payload ==>', this.payload)
         if (this.editId) {
           await this.$axios.$put(`/suspect/update/${this.editId}`, {
             ...this.payload,
           })
         } else {
-          await this.$axios.$post('/suspect/create', {
+          await this.$axios.$post('/signalisation/create', {
             ...this.payload,
           })
         }
-        this.$router.push('/suspects')
+        this.$router.push('/signalisations')
       } catch ({ response }) {
         this.error = response.data
       }
@@ -403,8 +416,7 @@ export default {
     async getDepartments() {
       try {
         const departments = await this.$axios.$get(`/departement/list`)
-        this.departments = Object.values(departments)
-        console.log('this.departments ==>', this.departments)
+        this.departments = Object.entries(departments)
       } catch ({ response }) {
         this.error = response.data
       }
