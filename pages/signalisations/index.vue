@@ -147,8 +147,9 @@ export default {
           signalisation.lieu_signalisation
             ? signalisation.lieu_signalisation.libelle
             : ' ',
-          signalisation.service ? signalisation.service.libelle : ' ',
+          signalisation.service ? signalisation.service.code : ' ',
           signalisation.commentaires,
+          signalisation.id,
         ]
       })
       window.$('#signalisations').DataTable({
@@ -180,6 +181,28 @@ export default {
           { title: 'Lieu de signalisation' },
           { title: 'Service requerant' },
           { title: 'Informations sur la signalisation' },
+          {
+            title: 'actions',
+            render(id) {
+              return (
+                '<div class="d-inline-flex"><a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown">' +
+                window.feather.icons['more-vertical'].toSvg({
+                  class: 'font-small-4',
+                }) +
+                '</a><div class="dropdown-menu dropdown-menu-end"><a href="/signalisations/' +
+                id +
+                '" class="dropdown-item">' +
+                window.feather.icons['file-text'].toSvg({
+                  class: 'font-small-4 me-50',
+                }) +
+                'Details</a></div></div><a href="/signalisations/form?id=' +
+                id +
+                '" class="item-edit">' +
+                window.feather.icons.edit.toSvg({ class: 'font-small-4' }) +
+                '</a>'
+              )
+            },
+          },
         ],
       })
     })

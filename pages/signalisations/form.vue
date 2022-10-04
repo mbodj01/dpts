@@ -30,12 +30,12 @@
                     <label class="form-label" for="select2-basic"
                       >Mis en cause</label
                     >
-                    <select id="select2-basic" class="select2 form-select">
-                      <option
-                        v-for="s in suspects"
-                        :key="s.id"
-                        :value="JSON.stringify(s)"
-                      >
+                    <select
+                      id="select2-basic"
+                      :disabled="!!editId"
+                      class="select2 form-select"
+                    >
+                      <option v-for="s in suspects" :key="s.id" :value="s.id">
                         {{ s.nom }} {{ s.prenom }}
                       </option>
                     </select>
@@ -179,14 +179,14 @@
                         <label class="form-label" for="pseudonyme"> Le: </label>
                         <input
                           id="pseudonyme"
-                          v-model="payload.date_signalisation"
+                          :value="payload.date_signalisation"
                           disabled
                           type="text"
                           class="form-control"
                         />
                       </div>
                       <div class="col-6 d-flex align-items-center gap-1">
-                        <label class="form-label" for="civility"> à </label>
+                        <label class="form-label"> à </label>
                         <select
                           v-model="payload.lieu_signalisation_id"
                           required
@@ -243,6 +243,7 @@ export default {
       suspects: [],
       motifs: [],
       departments: [],
+      signalisation: {},
       suspect: {},
       payload: {
         date_signalisation: '2022-01-01',
@@ -334,19 +335,30 @@ export default {
     window
       .$('#select2-multiple')
       .on('select2:select', (e) => {
-        if (!this.payload.motif_ids.includes(e.params.data.id)) {
-          this.payload.motif_ids.push(e.params.data.id)
+        if (!this.payload.motif_ids.includes(+e.params.data.id)) {
+          this.payload.motif_ids.push(+e.params.data.id)
         }
       })
       .on('select2:unselecting', (e) => {
-        const index = this.payload.motif_ids.indexOf(e.target.value)
+        const index = this.payload.motif_ids.indexOf(+e.target.value)
         if (index > -1) {
           this.payload.motif_ids.splice(index, 1)
         }
       })
     this.editId = this.$route.query.id
     if (this.editId) {
-      await this.getSuspect()
+      await this.getSignalisation()
+      window.$('#select2-basic').val(this.suspect.id).trigger('change')
+      this.suspect = this.signalisation.suspect
+      this.payload = {
+        ...this.payload,
+        ...this.signalisation,
+      }
+      this.payload.motif_ids = this.signalisation.motifs.map((x) => x.id)
+      window
+        .$('#select2-multiple')
+        .val(this.signalisation.motifs.map((x) => x.id))
+        .trigger('change')
     }
     this.setBreadcrumbs({
       title: 'mis en cause',
@@ -356,8 +368,8 @@ export default {
           url: '/',
         },
         {
-          title: 'mis en cause',
-          url: '/suspects',
+          title: 'Signalisations',
+          url: '/signalisations',
         },
         {
           title: this.editId
@@ -376,9 +388,8 @@ export default {
         this.payload.user_id = this.$auth.user.id
         this.payload.service_id = this.$auth.user.service_id
         this.payload.suspect_id = this.suspect.id
-        console.log('this.payload ==>', this.payload)
         if (this.editId) {
-          await this.$axios.$put(`/suspect/update/${this.editId}`, {
+          await this.$axios.$put(`/signalisation/update/${this.editId}`, {
             ...this.payload,
           })
         } else {
@@ -391,9 +402,13 @@ export default {
         this.error = response.data
       }
     },
-    async getSuspect() {
+    async getSignalisation() {
       try {
-        this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        this.signalisation = await this.$axios.$get(
+          `/signalisation/show/${this.editId}`
+        )
+        this.signalisation = this.signalisation[0]
+        this.suspect = this.signalisation.suspect
       } catch ({ response }) {
         this.error = response.data
       }
@@ -421,6 +436,15 @@ export default {
         this.error = response.data
       }
     },
+    // formatDate(d) {
+    //   if (d) {
+    //     const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(d)
+    //     const mo = new Intl.DateTimeFormat('fr', { month: 'short' }).format(d)
+    //     const da = new Intl.DateTimeFormat('fr', { day: '2-digit' }).format(d)
+    //     console.log(`${da}-${mo}-${ye}`)
+    //     return `${da}-${mo}-${ye}`
+    //   }
+    // },
   },
 }
 </script>
