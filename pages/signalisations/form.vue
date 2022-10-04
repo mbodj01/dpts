@@ -155,7 +155,7 @@
             <div class="card-body">
               <div class="row mb-1">
                 <div class="col-12">
-                  <div class="col-md-6 mb-1">
+                  <div class="col-md-12 mb-1">
                     <label class="form-label" for="select2-multiple">
                       Infractions
                     </label>
@@ -172,6 +172,28 @@
                         {{ motif.libelle }}
                       </option>
                     </select>
+                  </div>
+                  <div class="col-md-12 mb-1">
+                    <div class="row">
+                      <div class="col-6">
+                        <span>Le:</span>
+                        <span>
+                          {{ new Date().toLocaleDateString('fr-FR') }}
+                        </span>
+                      </div>
+                      <div class="col-6 d-flex align-items-center gap-1">
+                        <label class="form-label" for="civility"> à </label>
+                        <select required class="form-select">
+                          <option
+                            v-for="department in departments"
+                            :key="department"
+                            :value="department"
+                          >
+                            {{ department }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,6 +222,7 @@ export default {
     return {
       suspects: [],
       motifs: [],
+      departments: [],
       suspect: {},
       payload: {
         motifs: [],
@@ -277,6 +300,7 @@ export default {
   async mounted() {
     await this.getSuspects()
     await this.getMotifs()
+    await this.getDepartments()
     const $suspect = document.getElementById('select2-basic').value
     if ($suspect) {
       this.suspect = JSON.parse($suspect)
@@ -361,6 +385,15 @@ export default {
       try {
         const motifs = await this.$axios.$get(`/motif/list`)
         this.motifs = motifs.data
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
+    async getDepartments() {
+      try {
+        const departments = await this.$axios.$get(`/departement/list`)
+        this.departments = Object.values(departments)
+        console.log('this.departments ==>', this.departments)
       } catch ({ response }) {
         this.error = response.data
       }
