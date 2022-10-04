@@ -143,7 +143,7 @@ export default {
             prenom: signalisation.suspect.prenom,
             profession: signalisation.suspect.profession,
           },
-          signalisation.motifs.map(x => x.libelle).join(' - '),
+          signalisation.motifs,
           signalisation.lieu_signalisation
             ? signalisation.lieu_signalisation.libelle
             : ' ',
@@ -167,7 +167,16 @@ export default {
               <span class="emp_name text-truncate fw-bold">${data.prenom} ${data.nom}</span><small class="emp_post text-truncate text-muted"> ${data.profession} </small></div></div>`
             },
           },
-          { title: 'Motif' },
+          {
+            title: 'Motif',
+            render(motifs) {
+              const $div = document.createElement('div')
+              motifs.forEach((motif) => {
+                $div.innerHTML += `<span class="badge rounded-pill badge-light-primary" style="margin: 0 3px 3px 0"> ${motif.libelle} </span>`
+              })
+              return $div.outerHTML
+            },
+          },
           { title: 'Lieu de signalisation' },
           { title: 'Service requerant' },
           { title: 'Informations sur la signalisation' },
