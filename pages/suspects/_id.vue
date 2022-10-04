@@ -17,59 +17,69 @@
                     alt="User avatar"
                   />
                   <div class="user-info text-center">
-                    <h4>{Civilite. Prenom Nom}</h4>
-                    <span class="badge bg-light-secondary">{Profession}</span>
+                    <h4>
+                      {{ suspect?.civilite }} {{ suspect?.prenom }}
+                      {{ suspect?.nom }}
+                    </h4>
+                    <span class="badge bg-light-secondary">{{
+                      suspect?.profession || 'Pas de profession'
+                    }}</span>
                   </div>
                 </div>
               </div>
-              <!-- <div class="d-flex justify-content-around my-2 pt-75">
-                <div class="d-flex align-items-start me-2">
-                  <span class="badge bg-light-primary p-75 rounded">
-                    <i data-feather="check" class="font-medium-2"></i>
-                  </span>
-                  <div class="ms-75">
-                    <h4 class="mb-0">1.23k</h4>
-                    <small>Tasks Done</small>
-                  </div>
-                </div>
-                <div class="d-flex align-items-start">
-                  <span class="badge bg-light-primary p-75 rounded">
-                    <i data-feather="briefcase" class="font-medium-2"></i>
-                  </span>
-                  <div class="ms-75">
-                    <h4 class="mb-0">568</h4>
-                    <small>Projects Done</small>
-                  </div>
-                </div>
-              </div> -->
               <h4 class="fw-bolder border-bottom pb-50 my-2">Identité</h4>
               <div class="info-container">
                 <ul class="list-unstyled">
                   <li class="mb-75">
                     <span class="fw-bolder me-25">Pseudonyme:</span>
-                    <span>{pseudonyme}</span>
+                    <span> {{ suspect?.pseudonyme }} </span>
                   </li>
                   <li class="mb-75">
                     <span class="fw-bolder me-25">Date de naissance:</span>
-                    <span>{Date de naissance}</span>
+                    <span> {{ suspect?.date_naissance }} </span>
                   </li>
                   <li class="mb-75">
                     <span class="fw-bolder me-25">Lieu de naissance:</span>
-                    <span>{Lieu de naissance}</span>
+                    <span> {{ suspect?.lieu_naissance }} </span>
+                  </li>
+                  <li class="mb-75">
+                    <span class="fw-bolder me-25">Taille:</span>
+                    <span> {{ suspect?.taille }} m </span>
                   </li>
                   <li class="mb-75">
                     <span class="fw-bolder me-25"
                       >Numéro carte d'identité:</span
                     >
-                    <span>{Numéro carte d'identité}</span>
+                    <span> {{ suspect?.cni }} </span>
                   </li>
                   <li class="mb-75">
                     <span class="fw-bolder me-25">Numéro passeport:</span>
-                    <span>{Numéro passeport}</span>
+                    <span>{{ suspect?.passport }}</span>
+                  </li>
+                  <li class="mb-75">
+                    <span class="fw-bolder me-25">Prénom / Nom mère:</span>
+                    <span
+                      >{{ suspect?.prenom_mere }} {{ suspect?.nom_mere }}</span
+                    >
+                  </li>
+                  <li class="mb-75">
+                    <span class="fw-bolder me-25">Prénom père:</span>
+                    <span>{{ suspect?.prenom_pere }}</span>
+                  </li>
+                  <li class="mb-75">
+                    <span class="fw-bolder me-25">Genre:</span>
+                    <span>{{ suspect?.sexe }}</span>
+                  </li>
+                  <li class="mb-75">
+                    <span class="fw-bolder me-25">Crée le:</span>
+                    <span>{{ suspect?.created_at }}</span>
                   </li>
                 </ul>
                 <div class="d-flex justify-content-center pt-2">
-                  <a href="/suspects/form?id" class="btn btn-primary me-1">
+                  <a
+                    :href="`/suspects/form?id=${suspect?.id}`"
+                    class="btn btn-primary me-1"
+                  >
                     Editer les informations
                   </a>
                   <a
@@ -144,9 +154,9 @@ export default {
       title: 'Profil mise en cause | DPTS',
     }
   },
-  mounted() {
-    const suspectId = this.$route.params.id
-    console.log('this.params.id ==>', suspectId)
+  async mounted() {
+    this.suspectId = this.$route.params.id
+    await this.getSuspect()
     this.setBreadcrumbs({
       title: 'Profil mise en cause',
       options: [
