@@ -99,6 +99,7 @@
                       id="taille"
                       v-model="suspect.taille"
                       required
+                      disabled
                       type="text"
                       class="form-control"
                       placeholder="Enter la taille du mis en cause"
@@ -113,6 +114,7 @@
                       v-model="suspect.profession"
                       type="text"
                       required
+                      disabled
                       class="form-control"
                       placeholder="Enter la profession du mis en cause"
                     />
@@ -124,6 +126,7 @@
                     <input
                       id="cni"
                       v-model="suspect.cni"
+                      disabled
                       type="text"
                       class="form-control"
                       placeholder="CNI du mis en cause"
@@ -136,6 +139,7 @@
                     <input
                       id="passport"
                       v-model="suspect.passport"
+                      disabled
                       type="text"
                       class="form-control"
                       placeholder="Passport du mis en cause"
@@ -153,30 +157,20 @@
                 <div class="col-12">
                   <div class="col-md-6 mb-1">
                     <label class="form-label" for="select2-multiple">
-                      Multiple
+                      Infractions
                     </label>
                     <select
                       id="select2-multiple"
                       class="select2 form-select"
                       multiple
                     >
-                      <optgroup label="Central Time Zone">
-                        <option value="AL">Alabama</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TX">Texas</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="WI">Wisconsin</option>
-                      </optgroup>
+                      <option
+                        v-for="motif in motifs"
+                        :key="motif.id"
+                        :value="motif.id"
+                      >
+                        {{ motif.libelle }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -205,6 +199,7 @@ export default {
   data() {
     return {
       suspects: [],
+      motifs: [],
       suspect: {},
       payload: {
         motifs: [],
@@ -281,6 +276,7 @@ export default {
   computed: {},
   async mounted() {
     await this.getSuspects()
+    await this.getMotifs()
     const $suspect = document.getElementById('select2-basic').value
     if ($suspect) {
       this.suspect = JSON.parse($suspect)
@@ -357,6 +353,14 @@ export default {
     async getSuspects() {
       try {
         this.suspects = await this.$axios.$get(`/suspect/list`)
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
+    async getMotifs() {
+      try {
+        const motifs = await this.$axios.$get(`/motif/list`)
+        this.motifs = motifs.data
       } catch ({ response }) {
         this.error = response.data
       }
