@@ -27,30 +27,32 @@
               <div class="row mb-1">
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="select2-basic">Basic</label>
+                    <label class="form-label" for="select2-basic"
+                      >Mis en cause</label
+                    >
                     <select id="select2-basic" class="select2 form-select">
-                      <option value="AK">Alaska</option>
-                      <option value="HI">Hawaii</option>
-                      <option value="CA">California</option>
-                      <option value="NV">Nevada</option>
-                      <option value="OR">Oregon</option>
+                      <option
+                        v-for="s in suspects"
+                        :key="s.id"
+                        :value="JSON.stringify(s)"
+                      >
+                        {{ s.nom }} {{ s.prenom }}
+                      </option>
                     </select>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="civility"> Civilité </label>
                     <select
                       id="civility"
-                      v-model="payload.civilite"
+                      v-model="suspect.civilite"
                       required
+                      disabled
                       class="form-select"
                     >
                       <option value="M.">M.</option>
                       <option value="Mme">Mme</option>
                       <option value="Mlle">Mlle</option>
                     </select>
-                    <div v-if="error.civilite" class="invalid-feedback">
-                      {{ error.civilite[0] }}
-                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="pseudonyme">
@@ -58,29 +60,23 @@
                     </label>
                     <input
                       id="pseudonyme"
-                      v-model="payload.pseudonyme"
+                      v-model="suspect.pseudonyme"
+                      disabled
                       type="text"
                       class="form-control"
                       placeholder="Enter le pseudonyme de la mise en cause"
                     />
-                    <div v-if="error.pseudonyme" class="invalid-feedback">
-                      {{ error.pseudonyme[0] }}
-                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="genre"> Genre </label>
-                    <select
+                    <input
                       id="genre"
-                      v-model="payload.sexe"
-                      required
-                      class="form-select"
-                    >
-                      <option value="masculin">Masculin</option>
-                      <option value="feminin">Feminin</option>
-                    </select>
-                    <div v-if="error.sexe" class="invalid-feedback">
-                      {{ error.sexe[0] }}
-                    </div>
+                      v-model="suspect.sexe"
+                      disabled
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le genre de la mise en cause"
+                    />
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="date_naissance">
@@ -88,14 +84,12 @@
                     </label>
                     <input
                       id="date_naissance"
-                      v-model="payload.date_naissance"
+                      v-model="suspect.date_naissance"
+                      disabled
                       type="text"
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
                     />
-                    <div v-if="error.date_naissance" class="invalid-feedback">
-                      {{ error.date_naissance[0] }}
-                    </div>
                   </div>
                 </div>
                 <div class="col-6">
@@ -103,15 +97,12 @@
                     <label class="form-label" for="taille">Taille</label>
                     <input
                       id="taille"
-                      v-model="payload.taille"
+                      v-model="suspect.taille"
                       required
                       type="text"
                       class="form-control"
                       placeholder="Enter la taille de la mise en cause"
                     />
-                    <div v-if="error.taille" class="invalid-feedback">
-                      {{ error.taille[0] }}
-                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="profession"
@@ -119,15 +110,12 @@
                     >
                     <input
                       id="profession"
-                      v-model="payload.profession"
+                      v-model="suspect.profession"
                       type="text"
                       required
                       class="form-control"
                       placeholder="Enter la profession de la mise en cause"
                     />
-                    <div v-if="error.profession" class="invalid-feedback">
-                      {{ error.profession[0] }}
-                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="cni"
@@ -135,14 +123,11 @@
                     >
                     <input
                       id="cni"
-                      v-model="payload.cni"
+                      v-model="suspect.cni"
                       type="text"
                       class="form-control"
                       placeholder="CNI de la mise en cause"
                     />
-                    <div v-if="error.cni" class="invalid-feedback">
-                      {{ error.cni[0] }}
-                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="passport"
@@ -150,14 +135,11 @@
                     >
                     <input
                       id="passport"
-                      v-model="payload.passport"
+                      v-model="suspect.passport"
                       type="text"
                       class="form-control"
                       placeholder="Passport de la mise en cause"
                     />
-                    <div v-if="error.passport" class="invalid-feedback">
-                      {{ error.passport[0] }}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -222,7 +204,8 @@ export default {
   middleware: 'auth',
   data() {
     return {
-      ok: [],
+      suspects: [],
+      suspect: {},
       payload: {
         motifs: [],
       },
@@ -296,12 +279,17 @@ export default {
     }
   },
   computed: {},
-  watch: {
-    ok(v) {
-      console.log('v ==>', v)
-    },
-  },
   async mounted() {
+    await this.getSuspects()
+    const $suspect = document.getElementById('select2-basic').value
+    if ($suspect) {
+      this.suspect = JSON.parse($suspect)
+    }
+    window.$('#select2-basic').on('change', (e) => {
+      if (e.target.value) {
+        this.suspect = JSON.parse(e.target.value)
+      }
+    })
     window
       .$('#select2-multiple')
       .on('select2:select', (e) => {
@@ -362,6 +350,13 @@ export default {
     async getSuspect() {
       try {
         this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
+    async getSuspects() {
+      try {
+        this.suspects = await this.$axios.$get(`/suspect/list`)
       } catch ({ response }) {
         this.error = response.data
       }

@@ -115,6 +115,11 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'ListSuspcets',
   middleware: 'auth',
+  head() {
+    return {
+      title: 'Liste des mis en cause | DPTS',
+    }
+  },
   async mounted() {
     this.setBreadcrumbs({
       title: 'Mise en cause',
