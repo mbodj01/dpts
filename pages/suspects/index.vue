@@ -122,7 +122,7 @@ export default {
   },
   async mounted() {
     this.setBreadcrumbs({
-      title: 'mis en cause',
+      title: 'Mis en cause',
       options: [
         {
           title: 'Accueil',
@@ -183,7 +183,9 @@ export default {
                 window.feather.icons['more-vertical'].toSvg({
                   class: 'font-small-4',
                 }) +
-                '</a><div class="dropdown-menu dropdown-menu-end"><a href="/suspects/' + id + '" class="dropdown-item">' +
+                '</a><div class="dropdown-menu dropdown-menu-end"><a href="/suspects/' +
+                id +
+                '" class="dropdown-item">' +
                 window.feather.icons['file-text'].toSvg({
                   class: 'font-small-4 me-50',
                 }) +
