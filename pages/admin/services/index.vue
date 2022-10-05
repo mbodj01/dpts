@@ -142,8 +142,10 @@ export default {
           url: '/data/locales/fr-FR.json',
         },
         data: services,
-        columns: [{ title: 'code' }, { title: 'libelle' },
-                {
+        columns: [
+          { title: 'code' },
+          { title: 'libelle' },
+          {
             title: 'actions',
             render(id) {
               return (
@@ -155,7 +157,8 @@ export default {
                 '</a>'
               )
             },
-          },],
+          },
+        ],
       })
     })
   },

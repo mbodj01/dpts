@@ -8,17 +8,17 @@
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-6">
-                   <div v-if="error" class="row">
-                <div class="alert alert-danger" role="alert">
-                  <div class="alert-body">
-                    <ul>
-                      <li v-for="err in error" :key="err">
-                        {{ err[0] }}
-                      </li>
-                    </ul>
+                  <div v-if="error" class="row">
+                    <div class="alert alert-danger" role="alert">
+                      <div class="alert-body">
+                        <ul>
+                          <li v-for="(err, i) in error" :key="i">
+                            {{ err[0] }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
                   <!-- header section -->
                   <div class="d-flex">
                     <a href="#" class="me-25">
@@ -50,7 +50,6 @@
                         {{ s.nom }} {{ s.prenom }}
                       </option>
                     </select>
-                    
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="civility"> Civilité </label>
@@ -285,7 +284,7 @@ export default {
         date_signalisation: '2022-01-01',
         motif_ids: [],
       },
-      error: {},
+      error: null,
       editId: false,
     }
   },
