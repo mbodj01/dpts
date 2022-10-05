@@ -11,11 +11,11 @@
               novalidate
               @submit.prevent="handleForm"
             >
-             <div v-if="error" class="row">
+              <div v-if="error" class="row">
                 <div class="alert alert-danger" role="alert">
                   <div class="alert-body">
                     <ul>
-                      <li v-for="err in error" :key="err">
+                      <li v-for="(err, i) in error" :key="i">
                         {{ err[0] }}
                       </li>
                     </ul>
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       payload: {},
-      error: {},
+      error: null,
       editId: false,
     }
   },
