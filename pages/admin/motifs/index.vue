@@ -45,14 +45,30 @@ export default {
     ])
     await this.$axios.$get('/motif/list').then((motifs) => {
       motifs = motifs.data.map((motif) => {
-        return [motif.code, motif.libelle]
+        return [motif.code, motif.libelle, motif.id]
       })
       window.$('#motifs').DataTable({
         language: {
           url: '/data/locales/fr-FR.json',
         },
         data: motifs,
-        columns: [{ title: 'code' }, { title: 'motif' }],
+        columns: [
+          { title: 'code' },
+          { title: 'motif' },
+          {
+            title: 'actions',
+            render(id) {
+              return (
+                '<div class="d-inline-flex"><a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown">' +
+                '</a></div><a href="/admin/motifs/form?id=' +
+                id +
+                '" class="item-edit">' +
+                window.feather.icons.edit.toSvg({ class: 'font-small-4' }) +
+                '</a>'
+              )
+            },
+          },
+        ],
       })
     })
   },

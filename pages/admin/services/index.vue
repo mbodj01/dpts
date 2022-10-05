@@ -135,14 +135,27 @@ export default {
     ])
     await this.$axios.$get('/service/list').then((services) => {
       services = services.data.map((service) => {
-        return [service.code, service.libelle]
+        return [service.code, service.libelle, service.id]
       })
       window.$('#services').DataTable({
         language: {
           url: '/data/locales/fr-FR.json',
         },
         data: services,
-        columns: [{ title: 'code' }, { title: 'libelle' }],
+        columns: [{ title: 'code' }, { title: 'libelle' },
+                {
+            title: 'actions',
+            render(id) {
+              return (
+                '<div class="d-inline-flex"><a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown">' +
+                '</a></div><a href="/admin/services/form?id=' +
+                id +
+                '" class="item-edit">' +
+                window.feather.icons.edit.toSvg({ class: 'font-small-4' }) +
+                '</a>'
+              )
+            },
+          },],
       })
     })
   },
