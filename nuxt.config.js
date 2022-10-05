@@ -45,6 +45,10 @@ export default {
         src: '/vendors/js/tables/datatable/responsive.bootstrap5.js',
         defer: true,
       },
+      {
+        src: '/js/extensions/toastr.min.js',
+        defer: true,
+      },
       { src: '/vendors/js/pickers/flatpickr/flatpickr.min.js', defer: true },
     ],
     link: [
@@ -57,6 +61,16 @@ export default {
         rel: 'stylesheet',
         type: 'text/css',
         href: '/vendors/css/vendors.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/vendors/css/extensions/toastr.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '/css/plugins/extensions/ext-component-toastr.min.css',
       },
       { rel: 'stylesheet', type: 'text/css', href: '/css/bootstrap.min.css' },
       {
