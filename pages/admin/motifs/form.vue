@@ -157,6 +157,9 @@ export default {
             ...this.payload,
           })
         }
+        window.toastr.success('La liste des motifs a été mis à jour', {
+          positionClass: 'toast-top-right',
+        })
         this.$router.push('/admin/motifs')
       } catch ({ response }) {
         this.error = response.data
