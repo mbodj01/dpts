@@ -11,6 +11,17 @@
               novalidate
               @submit.prevent="handleForm"
             >
+             <div v-if="error" class="row">
+                <div class="alert alert-danger" role="alert">
+                  <div class="alert-body">
+                    <ul>
+                      <li v-for="err in error" :key="err">
+                        {{ err[0] }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-6">
                   <div class="mb-1">
@@ -23,8 +34,8 @@
                       class="form-control"
                       placeholder="Enter un nouveau libelle"
                     />
-                    <div v-if="error.libelle" class="invalid-feedback">
-                      {{ error.libelle[0] }}
+                    <div v-if="error?.libelle" class="invalid-feedback">
+                      {{ error?.libelle[0] }}
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary">
