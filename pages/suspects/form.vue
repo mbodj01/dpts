@@ -11,6 +11,17 @@
               novalidate
               @submit.prevent="handleForm"
             >
+              <div v-if="error" class="row">
+                <div class="alert alert-danger" role="alert">
+                  <div class="alert-body">
+                    <ul>
+                      <li v-for="err in error" :key="err">
+                        {{ err[0] }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <div class="row mb-2">
                 <div class="col-6">
                   <!-- header section -->
@@ -61,8 +72,8 @@
                       <option value="Mme">Mme</option>
                       <option value="Mlle">Mlle</option>
                     </select>
-                    <div v-if="error.civilite" class="invalid-feedback">
-                      {{ error.civilite[0] }}
+                    <div v-if="error?.civilite" class="invalid-feedback">
+                      {{ error?.civilite[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -75,8 +86,8 @@
                       class="form-control"
                       placeholder="Enter le prenom du mis en cause"
                     />
-                    <div v-if="error.prenom" class="invalid-feedback">
-                      {{ error.prenom[0] }}
+                    <div v-if="error?.prenom" class="invalid-feedback">
+                      {{ error?.prenom[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -89,8 +100,8 @@
                       class="form-control"
                       placeholder="Enter le nom du mis en cause"
                     />
-                    <div v-if="error.nom" class="invalid-feedback">
-                      {{ error.nom[0] }}
+                    <div v-if="error?.nom" class="invalid-feedback">
+                      {{ error?.nom[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -104,8 +115,8 @@
                       class="form-control"
                       placeholder="Enter le pseudonyme du mis en cause"
                     />
-                    <div v-if="error.pseudonyme" class="invalid-feedback">
-                      {{ error.pseudonyme[0] }}
+                    <div v-if="error?.pseudonyme" class="invalid-feedback">
+                      {{ error?.pseudonyme[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -119,8 +130,8 @@
                       <option value="masculin">Masculin</option>
                       <option value="feminin">Feminin</option>
                     </select>
-                    <div v-if="error.sexe" class="invalid-feedback">
-                      {{ error.sexe[0] }}
+                    <div v-if="error?.sexe" class="invalid-feedback">
+                      {{ error?.sexe[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -134,8 +145,8 @@
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
                     />
-                    <div v-if="error.date_naissance" class="invalid-feedback">
-                      {{ error.date_naissance[0] }}
+                    <div v-if="error?.date_naissance" class="invalid-feedback">
+                      {{ error?.date_naissance[0] }}
                     </div>
                   </div>
                 </div>
@@ -150,8 +161,8 @@
                       class="form-control"
                       placeholder="Enter la taille du mis en cause"
                     />
-                    <div v-if="error.taille" class="invalid-feedback">
-                      {{ error.taille[0] }}
+                    <div v-if="error?.taille" class="invalid-feedback">
+                      {{ error?.taille[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -166,8 +177,8 @@
                       class="form-control"
                       placeholder="Enter la profession du mis en cause"
                     />
-                    <div v-if="error.profession" class="invalid-feedback">
-                      {{ error.profession[0] }}
+                    <div v-if="error?.profession" class="invalid-feedback">
+                      {{ error?.profession[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -181,8 +192,8 @@
                       class="form-control"
                       placeholder="CNI du mis en cause"
                     />
-                    <div v-if="error.cni" class="invalid-feedback">
-                      {{ error.cni[0] }}
+                    <div v-if="error?.cni" class="invalid-feedback">
+                      {{ error?.cni[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -196,8 +207,8 @@
                       class="form-control"
                       placeholder="Passport du mis en cause"
                     />
-                    <div v-if="error.passport" class="invalid-feedback">
-                      {{ error.passport[0] }}
+                    <div v-if="error?.passport" class="invalid-feedback">
+                      {{ error?.passport[0] }}
                     </div>
                   </div>
                 </div>
@@ -226,7 +237,7 @@ export default {
   data() {
     return {
       payload: {},
-      error: {},
+      error: null,
       editId: false,
     }
   },
