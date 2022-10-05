@@ -8,6 +8,17 @@
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-6">
+                   <div v-if="error" class="row">
+                <div class="alert alert-danger" role="alert">
+                  <div class="alert-body">
+                    <ul>
+                      <li v-for="err in error" :key="err">
+                        {{ err[0] }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
                   <!-- header section -->
                   <div class="d-flex">
                     <a href="#" class="me-25">
@@ -39,6 +50,7 @@
                         {{ s.nom }} {{ s.prenom }}
                       </option>
                     </select>
+                    
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="civility"> Civilité </label>
@@ -53,6 +65,9 @@
                       <option value="Mme">Mme</option>
                       <option value="Mlle">Mlle</option>
                     </select>
+                    <div v-if="error?.civilite" class="invalid-feedback">
+                      {{ error?.civilite[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="pseudonyme">
@@ -66,6 +81,9 @@
                       class="form-control"
                       placeholder="Enter le pseudonyme du mis en cause"
                     />
+                    <div v-if="error?.pseudonyme" class="invalid-feedback">
+                      {{ error?.pseudonyme[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="genre"> Genre </label>
@@ -77,6 +95,9 @@
                       class="form-control"
                       placeholder="Enter le genre du mis en cause"
                     />
+                    <div v-if="error?.sexe" class="invalid-feedback">
+                      {{ error?.sexe[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="date_naissance">
@@ -90,6 +111,9 @@
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
                     />
+                    <div v-if="error?.date_naissance" class="invalid-feedback">
+                      {{ error?.date_naissance[0] }}
+                    </div>
                   </div>
                 </div>
                 <div class="col-6">
@@ -104,6 +128,9 @@
                       class="form-control"
                       placeholder="Enter la taille du mis en cause"
                     />
+                    <div v-if="error?.taille" class="invalid-feedback">
+                      {{ error?.taille[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="profession"
@@ -118,6 +145,9 @@
                       class="form-control"
                       placeholder="Enter la profession du mis en cause"
                     />
+                    <div v-if="error?.profession" class="invalid-feedback">
+                      {{ error?.profession[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="cni"
@@ -131,6 +161,9 @@
                       class="form-control"
                       placeholder="CNI du mis en cause"
                     />
+                    <div v-if="error?.cni" class="invalid-feedback">
+                      {{ error?.cni[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="passport"
@@ -144,6 +177,9 @@
                       class="form-control"
                       placeholder="Passport du mis en cause"
                     />
+                    <div v-if="error?.passport" class="invalid-feedback">
+                      {{ error?.passport[0] }}
+                    </div>
                   </div>
                 </div>
               </div>
