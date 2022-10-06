@@ -148,6 +148,7 @@ export default {
             prenom: suspect.prenom,
             profession: suspect.profession,
           },
+          suspect.nationalite || { cc: 'SN', name: 'Sénégal' },
           suspect.date_naissance,
           suspect.lieu_naissance,
           suspect.taille,
@@ -169,6 +170,12 @@ export default {
               <span class="avatar-content">U</span></div>
               <div class="d-flex flex-column">
               <span class="emp_name text-truncate fw-bold">${data.prenom} ${data.nom}</span><small class="emp_post text-truncate text-muted"> ${data.profession} </small></div></div>`
+            },
+          },
+          {
+            title: 'Nationalité',
+            render({ cc, name }) {
+              return `<img src="https://countryflagsapi.com/png/${cc}" title="${name}" alt="${name}" height="18" width="24">`
             },
           },
           { title: 'Date de naissance' },

@@ -149,6 +149,20 @@
                       {{ error?.date_naissance[0] }}
                     </div>
                   </div>
+                  <div class="mb-1 d-flex flex-column">
+                    <label class="form-label" for="country">Nationalité</label>
+                    <client-only placeholder="Chargement...">
+                      <vue-country-dropdown
+                        :immediate-call-select-event="true"
+                        :enabled-flags="true"
+                        :enabled-country-code="true"
+                        :show-name-input="true"
+                        :show-not-selected-option="true"
+                        @onSelect="onSelect"
+                      >
+                      </vue-country-dropdown>
+                    </client-only>
+                  </div>
                 </div>
                 <div class="col-6">
                   <div class="mb-1">
@@ -212,7 +226,9 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="prenom_pere">Prénom du pere</label>
+                    <label class="form-label" for="prenom_pere"
+                      >Prénom du pere</label
+                    >
                     <input
                       id="prenom_pere"
                       v-model="payload.prenom_pere"
@@ -226,7 +242,9 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="prenom_mere">Prénom de la mere</label>
+                    <label class="form-label" for="prenom_mere"
+                      >Prénom de la mere</label
+                    >
                     <input
                       id="prenom_mere"
                       v-model="payload.prenom_mere"
@@ -240,7 +258,9 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="nom_mere">Nom de la mere</label>
+                    <label class="form-label" for="nom_mere"
+                      >Nom de la mere</label
+                    >
                     <input
                       id="nom_mere"
                       v-model="payload.nom_mere"
@@ -273,8 +293,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import VueCountryDropdown from 'vue-country-dropdown'
 export default {
   name: 'FormSuspcets',
+  components: {
+    VueCountryDropdown,
+  },
   middleware: 'auth',
   data() {
     return {
@@ -388,6 +412,9 @@ export default {
       } catch ({ response }) {
         this.error = response.data
       }
+    },
+    onSelect({ name, iso2, dialCode }) {
+      this.payload.nationalite = { cc: iso2, name }
     },
   },
 }

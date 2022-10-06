@@ -46,7 +46,11 @@
                       :disabled="!!editId"
                       class="select2 form-select"
                     >
-                      <option v-for="s in suspects" :key="s.id" :value="s.id">
+                      <option
+                        v-for="s in suspects"
+                        :key="s.id"
+                        :value="JSON.stringify(s)"
+                      >
                         {{ s.nom }} {{ s.prenom }}
                       </option>
                     </select>
