@@ -221,7 +221,7 @@
                       class="form-control"
                       placeholder="Enter le prenom du pere du mis en cause"
                     />
-                    <div v-if="error?.prenom" class="invalid-feedback">
+                    <div v-if="error?.prenom_pere" class="invalid-feedback">
                       {{ error?.prenom_pere[0] }}
                     </div>
                   </div>
@@ -235,7 +235,7 @@
                       class="form-control"
                       placeholder="Enter le prenom de la mere du mis en cause"
                     />
-                    <div v-if="error?.prenom" class="invalid-feedback">
+                    <div v-if="error?.prenom_mere" class="invalid-feedback">
                       {{ error?.prenom_mere[0] }}
                     </div>
                   </div>
@@ -249,7 +249,7 @@
                       class="form-control"
                       placeholder="Enter le nom de la mere du mis en cause"
                     />
-                    <div v-if="error?.nom" class="invalid-feedback">
+                    <div v-if="error?.nom_mere" class="invalid-feedback">
                       {{ error?.nom_mere[0] }}
                     </div>
                   </div>
