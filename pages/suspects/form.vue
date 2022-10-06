@@ -222,7 +222,7 @@
                       placeholder="Enter le prenom du pere du mis en cause"
                     />
                     <div v-if="error?.prenom" class="invalid-feedback">
-                      {{ error?.prenom[0] }}
+                      {{ error?.prenom_pere[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -236,7 +236,7 @@
                       placeholder="Enter le prenom de la mere du mis en cause"
                     />
                     <div v-if="error?.prenom" class="invalid-feedback">
-                      {{ error?.prenom[0] }}
+                      {{ error?.prenom_mere[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
@@ -250,7 +250,7 @@
                       placeholder="Enter le nom de la mere du mis en cause"
                     />
                     <div v-if="error?.nom" class="invalid-feedback">
-                      {{ error?.nom[0] }}
+                      {{ error?.nom_mere[0] }}
                     </div>
                   </div>
                 </div>
