@@ -211,6 +211,48 @@
                       {{ error?.passport[0] }}
                     </div>
                   </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="prenom_pere">Prénom du pere</label>
+                    <input
+                      id="prenom_pere"
+                      v-model="payload.prenom_pere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le prenom du pere du mis en cause"
+                    />
+                    <div v-if="error?.prenom" class="invalid-feedback">
+                      {{ error?.prenom[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="prenom_mere">Prénom de la mere</label>
+                    <input
+                      id="prenom_mere"
+                      v-model="payload.prenom_mere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le prenom de la mere du mis en cause"
+                    />
+                    <div v-if="error?.prenom" class="invalid-feedback">
+                      {{ error?.prenom[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="nom_mere">Nom de la mere</label>
+                    <input
+                      id="nom_mere"
+                      v-model="payload.nom_mere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le nom de la mere du mis en cause"
+                    />
+                    <div v-if="error?.nom" class="invalid-feedback">
+                      {{ error?.nom[0] }}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
