@@ -148,7 +148,7 @@ export default {
             prenom: suspect.prenom,
             profession: suspect.profession,
           },
-          suspect.nationalite || { cc: 'SN', name: 'Sénégal' },
+          JSON.parse(suspect.nationalite) || { cc: 'SN', name: 'Sénégal' },
           suspect.date_naissance,
           suspect.lieu_naissance,
           suspect.taille,
