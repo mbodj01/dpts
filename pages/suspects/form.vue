@@ -417,7 +417,7 @@ export default {
       }
     },
     onSelect({ name, iso2, dialCode }) {
-      this.payload.nationalite = { cc: iso2, name }
+      this.payload.nationalite = JSON.stringify({ cc: iso2, name })
     },
   },
 }
