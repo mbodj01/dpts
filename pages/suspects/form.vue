@@ -149,6 +149,22 @@
                       {{ error?.date_naissance[0] }}
                     </div>
                   </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="lieu_naissance">
+                      Lieu de Naissance
+                    </label>
+                    <input
+                      id="lieu_naissance"
+                      v-model="payload.lieu_naissance"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le lieu de naissance du mis en cause"
+                    />
+                    <div v-if="error?.lieu" class="invalid-feedback">
+                      {{ error?.lieu_naissance[0] }}
+                    </div>
+                  </div>
+
                   <div class="mb-1 d-flex flex-column">
                     <label class="form-label" for="country">Nationalité</label>
                     <client-only placeholder="Chargement...">
