@@ -134,7 +134,7 @@ export default {
         classes: 'btn-outline-primary',
         url: '/signalisations/form',
       },
-    ])
+    ])  
     await this.$axios.$get('/signalisation/list').then((signalisations) => {
       signalisations = signalisations.map((signalisation) => {
         return [
