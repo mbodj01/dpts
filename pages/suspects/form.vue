@@ -61,7 +61,7 @@
               <div class="row mb-1">
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="civility"> Civilité </label>
+                    <label class="form-label" for="civility"> Civilité* </label>
                     <select
                       id="civility"
                       v-model="payload.civilite"
@@ -77,7 +77,7 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="prenom">Prénom</label>
+                    <label class="form-label" for="prenom">Prénom*</label>
                     <input
                       id="prenom"
                       v-model="payload.prenom"
@@ -91,7 +91,7 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="nom">Nom</label>
+                    <label class="form-label" for="nom">Nom*</label>
                     <input
                       id="nom"
                       v-model="payload.nom"
@@ -105,38 +105,8 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="pseudonyme">
-                      Pseudonyme
-                    </label>
-                    <input
-                      id="pseudonyme"
-                      v-model="payload.pseudonyme"
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le pseudonyme du mis en cause"
-                    />
-                    <div v-if="error?.pseudonyme" class="invalid-feedback">
-                      {{ error?.pseudonyme[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="genre"> Genre </label>
-                    <select
-                      id="genre"
-                      v-model="payload.sexe"
-                      required
-                      class="form-select"
-                    >
-                      <option value="masculin">Masculin</option>
-                      <option value="feminin">Feminin</option>
-                    </select>
-                    <div v-if="error?.sexe" class="invalid-feedback">
-                      {{ error?.sexe[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
                     <label class="form-label" for="date_naissance">
-                      Date de naissance
+                      Date de naissance*
                     </label>
                     <input
                       id="date_naissance"
@@ -164,9 +134,41 @@
                       {{ error?.lieu_naissance[0] }}
                     </div>
                   </div>
-
+                  <div class="mb-1">
+                    <label class="form-label" for="">
+                      Nationalité sénégalaise?*
+                    </label>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="senegalais"
+                        v-model="payload.senegalais"
+                        required
+                        :value="true"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="senegalais"
+                        >Oui</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="non-senegalais"
+                        v-model="payload.senegalais"
+                        required
+                        :value="false"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="non-senegalais"
+                        >Non</label
+                      >
+                    </div>
+                  </div>
                   <div class="mb-1 d-flex flex-column">
-                    <label class="form-label" for="country">Nationalité</label>
+                    <label class="form-label" for="country"
+                      >Autre nationalité</label
+                    >
                     <client-only placeholder="Chargement...">
                       <vue-country-dropdown
                         :immediate-call-select-event="true"
@@ -179,10 +181,105 @@
                       </vue-country-dropdown>
                     </client-only>
                   </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="genre"> Genre* </label>
+                    <select
+                      id="genre"
+                      v-model="payload.sexe"
+                      required
+                      class="form-select"
+                    >
+                      <option value="masculin">Masculin</option>
+                      <option value="feminin">Feminin</option>
+                    </select>
+                    <div v-if="error?.sexe" class="invalid-feedback">
+                      {{ error?.sexe[0] }}
+                    </div>
+                    <div class="mb-1">
+                      <label class="form-label" for="adresse"
+                        >Lieu de résidence</label
+                      >
+                      <input
+                        id="adresse"
+                        v-model="payload.adresse"
+                        required
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter l'adresse du mis en cause"
+                      />
+                      <!-- <div v-if="error?.prenom" class="invalid-feedback">
+                      {{ error?.prenom[0] }}
+                    </div> -->
+                    </div>
+                  </div>
                 </div>
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="taille">Taille</label>
+                    <label class="form-label" for="prenom_pere"
+                      >Prénom du pére*</label
+                    >
+                    <input
+                      id="prenom_pere"
+                      v-model="payload.prenom_pere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le prenom du pére du mis en cause"
+                    />
+                    <div v-if="error?.prenom_pere" class="invalid-feedback">
+                      {{ error?.prenom_pere[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="prenom_mere"
+                      >Prénom de la mére*</label
+                    >
+                    <input
+                      id="prenom_mere"
+                      v-model="payload.prenom_mere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le prenom de la mére du mis en cause"
+                    />
+                    <div v-if="error?.prenom_mere" class="invalid-feedback">
+                      {{ error?.prenom_mere[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="nom_mere"
+                      >Nom de la mére*</label
+                    >
+                    <input
+                      id="nom_mere"
+                      v-model="payload.nom_mere"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le nom de la mére du mis en cause"
+                    />
+                    <div v-if="error?.nom_mere" class="invalid-feedback">
+                      {{ error?.nom_mere[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="formule"
+                      >Formule décadactylaire</label
+                    >
+                    <input
+                      id="formule"
+                      v-model="payload.formule"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter la formule décadactylaire du mis en cause"
+                    />
+                    <!-- <div v-if="error?.nom_mere" class="invalid-feedback">
+                      {{ error?.nom_mere[0] }}
+                    </div> -->
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="taille">Taille*</label>
                     <input
                       id="taille"
                       v-model="payload.taille"
@@ -196,6 +293,20 @@
                     </div>
                   </div>
                   <div class="mb-1">
+                    <label class="form-label" for="masse">Masse*</label>
+                    <input
+                      id="masse"
+                      v-model="payload.masse"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter la masse du mis en cause"
+                    />
+                    <!-- <div v-if="error?.taille" class="invalid-feedback">
+                      {{ error?.taille[0] }}
+                    </div> -->
+                  </div>
+                  <div class="mb-1">
                     <label class="form-label" for="profession"
                       >Profession</label
                     >
@@ -207,95 +318,53 @@
                       class="form-control"
                       placeholder="Enter la profession du mis en cause"
                     />
+
                     <div v-if="error?.profession" class="invalid-feedback">
                       {{ error?.profession[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="cni"
-                      >Numéro carte d'identité nationale</label
-                    >
+                    <label class="form-label" for="profession">Procédure</label>
                     <input
-                      id="cni"
-                      v-model="payload.cni"
+                      id="procedure"
+                      v-model="payload.procedure"
                       type="text"
-                      class="form-control"
-                      placeholder="CNI du mis en cause"
-                    />
-                    <div v-if="error?.cni" class="invalid-feedback">
-                      {{ error?.cni[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="passport"
-                      >Numéro passport</label
-                    >
-                    <input
-                      id="passport"
-                      v-model="payload.passport"
-                      type="text"
-                      class="form-control"
-                      placeholder="Passport du mis en cause"
-                    />
-                    <div v-if="error?.passport" class="invalid-feedback">
-                      {{ error?.passport[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="prenom_pere"
-                      >Prénom du pere</label
-                    >
-                    <input
-                      id="prenom_pere"
-                      v-model="payload.prenom_pere"
                       required
-                      type="text"
                       class="form-control"
-                      placeholder="Enter le prenom du pere du mis en cause"
+                      placeholder="Enter la procédure du mis en cause"
                     />
-                    <div v-if="error?.prenom_pere" class="invalid-feedback">
-                      {{ error?.prenom_pere[0] }}
+                    <!-- <div v-if="error?.profession" class="invalid-feedback">
+                      {{ error?.profession[0] }} -->
+                    <!-- </div> -->
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="created-at"> Le </label>
+                    <input
+                      id="created-at"
+                      v-model="payload.created_at"
+                      type="text"
+                      class="form-control flatpickr-basic"
+                      placeholder="YYYY-MM-DD"
+                    />
+                    <div v-if="error?.created_at" class="invalid-feedback">
+                      {{ error?.created_at[0] }}
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="prenom_mere"
-                      >Prénom de la mere</label
-                    >
-                    <input
-                      id="prenom_mere"
-                      v-model="payload.prenom_mere"
-                      required
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le prenom de la mere du mis en cause"
-                    />
-                    <div v-if="error?.prenom_mere" class="invalid-feedback">
-                      {{ error?.prenom_mere[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
-                    <label class="form-label" for="nom_mere"
-                      >Nom de la mere</label
-                    >
-                    <input
-                      id="nom_mere"
-                      v-model="payload.nom_mere"
-                      required
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le nom de la mere du mis en cause"
-                    />
-                    <div v-if="error?.nom_mere" class="invalid-feedback">
-                      {{ error?.nom_mere[0] }}
-                    </div>
+                    <label class="form-label" for="fiche"
+                      >Fiche établie par :
+                    </label>
+                    <span class="user-name fw-bolder">
+                      {{ $auth.user?.prenom }} {{ $auth.user?.nom }}
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary">
-                    {{ editId ? 'Modifier' : 'Soumettre' }}
-                  </button>
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">
+                      {{ editId ? 'Modifier' : 'Soumettre' }}
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
@@ -318,7 +387,10 @@ export default {
   middleware: 'auth',
   data() {
     return {
-      payload: {},
+      payload: {
+        senegalais: true,
+        created_at: this.formatDate(Date.now()),
+      },
       error: null,
       editId: false,
     }
@@ -427,9 +499,24 @@ export default {
     },
     async getSuspect() {
       try {
-        this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        const data = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        this.payload = {
+          ...this.payload,
+          ...data[0],
+        }
+        this.payload.created_at = this.formatDate(
+          new Date(this.payload.created_at)
+        )
       } catch ({ response }) {
-        this.error = response.data
+        this.error = response?.data
+      }
+    },
+    formatDate(d) {
+      if (d) {
+        const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(d)
+        const mo = new Intl.DateTimeFormat('fr', { month: '2-digit' }).format(d)
+        const da = new Intl.DateTimeFormat('fr', { day: '2-digit' }).format(d)
+        return `${ye}-${mo}-${da}`
       }
     },
     onSelect({ name, iso2, dialCode }) {
