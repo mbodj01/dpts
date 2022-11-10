@@ -310,14 +310,6 @@
                       {{ error?.profession[0] }}
                     </div>
                   </div>
-                  <label class="form-label" for="motifs"> Motif(s) </label>
-                  <textarea
-                    id="motifs"
-                    v-model="payload.motifs"
-                    class="form-control"
-                    rows="3"
-                    placeholder="Entrer les motifs liés au suspect"
-                  ></textarea>
                   <div class="mb-1">
                     <label class="form-label" for="profession">Procédure</label>
                     <input
@@ -333,18 +325,17 @@
                     <!-- </div> -->
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="date">Le </label>
+                    <label class="form-label" for="created-at"> Le </label>
                     <input
-                      id="date"
+                      id="created-at"
                       v-model="payload.created_at"
-                      type="date"
-                      required
-                      class="form-control"
+                      type="text"
+                      class="form-control flatpickr-basic"
+                      placeholder="YYYY-MM-DD"
                     />
-
-                    <!-- <div v-if="error?.profession" class="invalid-feedback">
-                      {{ error?.profession[0] }}
-                    </div> -->
+                    <div v-if="error?.created_at" class="invalid-feedback">
+                      {{ error?.created_at[0] }}
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="fiche"
@@ -443,11 +434,10 @@ export default {
   },
   computed: {},
   async mounted() {
+    this.payload.created_at = this.payload.created_at || this.formatDate(Date.now())
     this.editId = this.$route.query.id
     if (this.editId) {
       await this.getSuspect()
-    } else {
-      this.payload.created_at = Date.now()
     }
     this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
@@ -497,6 +487,14 @@ export default {
         this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
       } catch ({ response }) {
         this.error = response.data
+      }
+    },
+    formatDate(d) {
+      if (d) {
+        const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(d)
+        const mo = new Intl.DateTimeFormat('fr', { month: '2-digit' }).format(d)
+        const da = new Intl.DateTimeFormat('fr', { day: '2-digit' }).format(d)
+        return `${ye}-${mo}-${da}`
       }
     },
     onSelect({ name, iso2, dialCode }) {

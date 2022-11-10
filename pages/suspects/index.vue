@@ -173,7 +173,7 @@ export default {
               <span class="emp_name text-truncate fw-bold">${data.prenom} ${data.nom}</span><small class="emp_post text-truncate text-muted"> ${data.profession} </small></div></div>`
             },
           },
-          
+
           {
             title: 'Nationalité',
             render({ cc, name }) {
@@ -185,7 +185,7 @@ export default {
           { title: 'Lieu de naissance' },
           { title: 'Taille (en M)' },
           { title: 'Genre' },
-          
+
           {
             title: 'actions',
             render(id) {
@@ -208,7 +208,6 @@ export default {
               )
             },
           },
-         
         ],
       })
     })
