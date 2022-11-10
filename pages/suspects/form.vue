@@ -135,21 +135,35 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="senegalais">
-                      Nationalité sénégalaise*
+                    <label class="form-label" for="">
+                      Nationalité sénégalaise?*
                     </label>
-                    <select
-                      id="senegalais"
-                      v-model="payload.senegalais"
-                      required
-                      class="form-select"
-                    >
-                      <option value="true">OUI</option>
-                      <option value="false">NON</option>
-                    </select>
-                    <!-- <div v-if="error?.senegalais" class="invalid-feedback">
-                      {{ error?.senegalais[0] }}
-                    </div> -->
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="senegalais"
+                        v-model="payload.senegalais"
+                        required
+                        :value="true"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="senegalais"
+                        >Oui</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="non-senegalais"
+                        v-model="payload.senegalais"
+                        required
+                        :value="false"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="non-senegalais"
+                        >Non</label
+                      >
+                    </div>
                   </div>
                   <div class="mb-1 d-flex flex-column">
                     <label class="form-label" for="country"
@@ -167,7 +181,6 @@
                       </vue-country-dropdown>
                     </client-only>
                   </div>
-
                   <div class="mb-1">
                     <label class="form-label" for="genre"> Genre* </label>
                     <select
@@ -374,7 +387,10 @@ export default {
   middleware: 'auth',
   data() {
     return {
-      payload: {},
+      payload: {
+        senegalais: true,
+        created_at: this.formatDate(Date.now()),
+      },
       error: null,
       editId: false,
     }
@@ -434,7 +450,6 @@ export default {
   },
   computed: {},
   async mounted() {
-    this.payload.created_at = this.payload.created_at || this.formatDate(Date.now())
     this.editId = this.$route.query.id
     if (this.editId) {
       await this.getSuspect()
@@ -484,9 +499,16 @@ export default {
     },
     async getSuspect() {
       try {
-        this.payload = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        const data = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        this.payload = {
+          ...this.payload,
+          ...data[0],
+        }
+        this.payload.created_at = this.formatDate(
+          new Date(this.payload.created_at)
+        )
       } catch ({ response }) {
-        this.error = response.data
+        this.error = response?.data
       }
     },
     formatDate(d) {
