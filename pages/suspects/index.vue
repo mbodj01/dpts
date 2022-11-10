@@ -177,7 +177,7 @@ export default {
           {
             title: 'Nationalité',
             render({ cc, name }) {
-              return `<img src="https://countryflagsapi.com/png/${cc}" title="${name}" alt="${name}" height="18" width="24">`
+              return `<img src="https://flagcdn.com/16x12/${cc.toLowerCase()}.png" title="${name}" alt="${name}" height="18" width="24">`
             },
           },
           { title: 'Pseudonyme' },
