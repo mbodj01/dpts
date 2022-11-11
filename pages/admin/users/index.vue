@@ -49,7 +49,7 @@ export default {
             avatar: user.avatar,
           },
           user.email,
-          user.service_id,
+          user.user_service?.libelle || 'Pas de service',
           user.roles,
           user.is_active,
           user.created_at,

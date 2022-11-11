@@ -67,12 +67,29 @@
                     </div>
                   </div>
                   <div class="mb-1">
+                    <label class="form-label" for="profession"
+                      >Profession</label
+                    >
+                    <input
+                      id="profession"
+                      v-model="payload.profession"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter la profession"
+                    />
+                    <div v-if="error?.profession" class="invalid-feedback">
+                      {{ error?.profession[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
                     <label class="form-label"> Service </label>
                     <select
                       v-model="payload.service_id"
                       required
                       class="form-select"
                     >
+                      <option>Selectionner le service</option>
                       <option
                         v-for="service in services"
                         :key="service.id"
@@ -81,6 +98,53 @@
                         {{ service.libelle }}
                       </option>
                     </select>
+                  </div>
+                  <client-only>
+                    <div class="mb-1">
+                      <label class="form-label" for="select2-multiple">
+                        Rôles
+                      </label>
+                      <select
+                        id="select2-multiple"
+                        class="select2 form-select"
+                        multiple
+                      >
+                        <option
+                          v-for="role in roles"
+                          :key="role.code"
+                          :value="role.code"
+                        >
+                          {{ role.libelle }}
+                        </option>
+                      </select>
+                    </div>
+                  </client-only>
+                  <div class="mb-1">
+                    <label class="form-label" for=""> Active? * </label>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="active"
+                        v-model="payload.active"
+                        required
+                        :value="true"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="active">Oui</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="non-active"
+                        v-model="payload.active"
+                        required
+                        :value="false"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="non-active"
+                        >Non</label
+                      >
+                    </div>
                   </div>
                   <button type="submit" class="btn btn-primary">
                     {{ editId ? 'Modifier' : 'Soumettre' }}
@@ -103,10 +167,16 @@ export default {
   middleware: 'auth',
   data() {
     return {
-      payload: {},
+      payload: {
+        active: false,
+      },
       error: null,
       editId: false,
       services: [],
+      roles: [
+        { code: 'ROLE_ADMIN', libelle: 'Administrateur' },
+        { code: 'ROLE_USER', libelle: 'Utilisateur' },
+      ],
     }
   },
   head() {
@@ -132,6 +202,10 @@ export default {
           rel: 'stylesheet',
           href: '/css/plugins/forms/form-validation.css',
         },
+        {
+          rel: 'stylesheet',
+          href: '/css/forms/select/select2.min.css',
+        },
       ],
       script: [
         {
@@ -156,6 +230,14 @@ export default {
         },
         {
           src: '/js/scripts/forms/form-validation.js',
+          defer: true,
+        },
+        {
+          src: '/js/forms/select/select2.full.min.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/form-select2.min.js',
           defer: true,
         },
       ],
@@ -192,24 +274,25 @@ export default {
     ...mapMutations({
       setBreadcrumbs: 'setBreadcrumbs',
     }),
-    async handleForm() {
-      try {
-        if (this.editId) {
-          await this.$axios.$put(`/motif/update/${this.editId}`, {
-            ...this.payload,
-          })
-        } else {
-          await this.$axios.$post('/motif/create', {
-            ...this.payload,
-          })
-        }
-        window.toastr.success('La liste des motifs a été mis à jour', {
-          positionClass: 'toast-top-right',
-        })
-        this.$router.push('/admin/motifs')
-      } catch ({ response }) {
-        this.error = response.data
-      }
+    handleForm() {
+      console.log('this.payload ==>', this.payload)
+      // try {
+      //   if (this.editId) {
+      //     await this.$axios.$put(`/motif/update/${this.editId}`, {
+      //       ...this.payload,
+      //     })
+      //   } else {
+      //     await this.$axios.$post('/motif/create', {
+      //       ...this.payload,
+      //     })
+      //   }
+      //   window.toastr.success('La liste des motifs a été mis à jour', {
+      //     positionClass: 'toast-top-right',
+      //   })
+      //   this.$router.push('/admin/motifs')
+      // } catch ({ response }) {
+      //   this.error = response.data
+      // }
     },
     async getMotif() {
       try {
