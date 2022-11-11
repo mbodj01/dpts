@@ -68,6 +68,16 @@
               <span data-i18n="Cards">Services</span>
             </a>
           </li>
+          <li class="dropdown" data-menu="">
+            <a
+              class="dropdown-item d-flex align-items-center"
+              href="/admin/users"
+              data-i18n="Cards"
+            >
+              <i data-feather="credit-card"></i>
+              <span data-i18n="Cards">Utilisateurs</span>
+            </a>
+          </li>
         </ul>
       </li>
     </ul>
