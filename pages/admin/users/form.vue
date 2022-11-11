@@ -25,18 +25,62 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="libelle">Libelle</label>
+                    <label class="form-label" for="prenom">Prénom</label>
                     <input
-                      id="libelle"
-                      v-model="payload.libelle"
+                      id="prenom"
+                      v-model="payload.prenom"
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter un nouveau libelle"
+                      placeholder="Enter le prenom"
                     />
-                    <div v-if="error?.libelle" class="invalid-feedback">
-                      {{ error?.libelle[0] }}
+                    <div v-if="error?.prenom" class="invalid-feedback">
+                      {{ error?.prenom[0] }}
                     </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="nom">Nom</label>
+                    <input
+                      id="nom"
+                      v-model="payload.nom"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter le nom"
+                    />
+                    <div v-if="error?.nom" class="invalid-feedback">
+                      {{ error?.nom[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="email">Email</label>
+                    <input
+                      id="email"
+                      v-model="payload.email"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter l'email"
+                    />
+                    <div v-if="error?.email" class="invalid-feedback">
+                      {{ error?.email[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label"> Service </label>
+                    <select
+                      v-model="payload.service_id"
+                      required
+                      class="form-select"
+                    >
+                      <option
+                        v-for="service in services"
+                        :key="service.id"
+                        :value="service.id"
+                      >
+                        {{ service.libelle }}
+                      </option>
+                    </select>
                   </div>
                   <button type="submit" class="btn btn-primary">
                     {{ editId ? 'Modifier' : 'Soumettre' }}
@@ -62,6 +106,7 @@ export default {
       payload: {},
       error: null,
       editId: false,
+      services: [],
     }
   },
   head() {
@@ -119,6 +164,7 @@ export default {
   computed: {},
   async mounted() {
     this.editId = this.$route.query.id
+    this.getServices()
     if (this.editId) {
       await this.getMotif()
     }
@@ -168,6 +214,14 @@ export default {
     async getMotif() {
       try {
         this.payload = await this.$axios.$get(`/motif/show/${this.editId}`)
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
+    async getServices() {
+      try {
+        const services = await this.$axios.$get(`/service/list`)
+        this.services = services.data
       } catch ({ response }) {
         this.error = response.data
       }
