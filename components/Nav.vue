@@ -40,7 +40,7 @@
               <span class="user-name fw-bolder">
                 {{ $auth.user?.prenom }} {{ $auth.user?.nom }}
               </span>
-              <span class="user-status">Admin</span>
+              <span class="user-status">{{ $auth.user?.user_service.libelle }}</span>
             </div>
             <span class="avatar"
               ><img

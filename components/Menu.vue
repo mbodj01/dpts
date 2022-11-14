@@ -9,10 +9,16 @@
       <li class="nav-item" data-menu="">
         <a class="nav-link d-flex align-items-center" href="/">
           <i data-feather="home"></i>
-          <span data-i18n="Statistiques">Statistiques</span>
+          <span data-i18n="Statistiques">Tableau de bord</span>
         </a>
       </li>
       <li class="nav-item" data-menu="">
+        <a class="nav-link d-flex align-items-center" href="/">
+          <i data-feather="search"></i>
+          <span data-i18n="Statistiques">Rechercher</span>
+        </a>
+      </li>
+      <!-- <li class="nav-item" data-menu="">
         <a class="nav-link d-flex align-items-center" href="/suspects">
           <i data-feather="package"></i>
           <span data-i18n="mis en cause">Mis en cause</span>
@@ -23,8 +29,12 @@
           <i data-feather="package"></i>
           <span data-i18n="Signalisations">Signalisations</span>
         </a>
-      </li>
-      <li class="dropdown nav-item" data-menu="dropdown">
+      </li> -->
+      <li
+        v-if="$auth.user && $auth.user.roles.find((x) => x === 'ROLE_ADMIN')"
+        class="dropdown nav-item"
+        data-menu="dropdown"
+      >
         <a
           class="dropdown-toggle nav-link d-flex align-items-center"
           href="#"
