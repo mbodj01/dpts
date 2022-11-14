@@ -135,7 +135,55 @@ export default {
   },
   head() {
     return {
-      title: 'Page de recherche | DPTS',
+      title: 'Rechercher mis en cause | DPTS',
+      link: [
+        {
+          rel: 'stylesheet',
+          href: '/vendors/css/pickers/pickadate/pickadate.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: '/vendors/css/pickers/flatpickr/flatpickr.min.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css-rtl/plugins/forms/pickers/form-flat-pickr.min.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css-rtl/plugins/forms/pickers/form-pickadate.min.css',
+        },
+        {
+          rel: 'stylesheet',
+          href: '/css/plugins/forms/form-validation.css',
+        },
+      ],
+      script: [
+        {
+          src: '/vendors/js/pickers/pickadate/picker.js',
+          defer: true,
+        },
+        {
+          src: '/vendors/js/pickers/pickadate/picker.date.js',
+          defer: true,
+        },
+        {
+          src: '/vendors/js/pickers/pickadate/picker.time.js',
+          defer: true,
+        },
+        {
+          src: '/vendors/js/pickers/pickadate/legacy.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/pickers/form-pickers.min.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/form-validation.js',
+          defer: true,
+        },
+      ],
     }
   },
   mounted() {
