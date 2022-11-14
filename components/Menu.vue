@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="nav-item" data-menu="">
-        <a class="nav-link d-flex align-items-center" href="/">
+        <a class="nav-link d-flex align-items-center" href="/search">
           <i data-feather="search"></i>
           <span data-i18n="Statistiques">Rechercher</span>
         </a>

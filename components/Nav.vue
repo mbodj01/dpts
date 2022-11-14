@@ -20,9 +20,9 @@
       <div class="bookmark-wrapper d-flex align-items-center">
         <ul class="nav navbar-nav d-xl-none">
           <li class="nav-item">
-            <a class="nav-link menu-toggle" href="table-datatable-basic.html#"
-              ><i class="ficon" data-feather="menu"></i
-            ></a>
+            <a class="nav-link menu-toggle" href="table-datatable-basic.html#">
+              <i class="ficon" data-feather="menu"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -40,7 +40,9 @@
               <span class="user-name fw-bolder">
                 {{ $auth.user?.prenom }} {{ $auth.user?.nom }}
               </span>
-              <span class="user-status">{{ $auth.user?.user_service.libelle }}</span>
+              <span class="user-status">{{
+                $auth.user?.user_service.libelle
+              }}</span>
             </div>
             <span class="avatar"
               ><img
