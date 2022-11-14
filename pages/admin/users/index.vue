@@ -51,8 +51,7 @@ export default {
           user.email,
           user.user_service?.libelle || 'Pas de service',
           user.roles,
-          user.is_active,
-          user.created_at,
+          user.id
         ]
       })
       window.$('#users').DataTable({
@@ -80,7 +79,7 @@ export default {
                 type: 'success',
                 libelle: 'Utilisateur',
               }
-              if (data.includes('ROLE_ADMIN')) {
+              if (data && data.includes('ROLE_ADMIN')) {
                 roleobj = {
                   type: 'danger',
                   libelle: 'administrateur',

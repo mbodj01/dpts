@@ -25,7 +25,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="prenom">Prénom</label>
+                    <label class="form-label" for="prenom">Prénom *</label>
                     <input
                       id="prenom"
                       v-model="payload.prenom"
@@ -39,7 +39,7 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="nom">Nom</label>
+                    <label class="form-label" for="nom">Nom *</label>
                     <input
                       id="nom"
                       v-model="payload.nom"
@@ -53,7 +53,7 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="email">Email</label>
+                    <label class="form-label" for="email">Email *</label>
                     <input
                       id="email"
                       v-model="payload.email"
@@ -68,7 +68,7 @@
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="profession"
-                      >Profession</label
+                      >Profession *</label
                     >
                     <input
                       id="profession"
@@ -83,7 +83,7 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label"> Service </label>
+                    <label class="form-label"> Service *</label>
                     <select
                       v-model="payload.service_id"
                       required
@@ -106,6 +106,7 @@
                       </label>
                       <select
                         id="select2-multiple"
+                        v-model="payload.roles"
                         class="select2 form-select"
                         multiple
                       >
@@ -148,6 +149,13 @@
                   </div>
                   <button type="submit" class="btn btn-primary">
                     {{ editId ? 'Modifier' : 'Soumettre' }}
+                    <div
+                      v-if="loading"
+                      class="spinner-border spinner-border-sm spinner-grow-sm"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
                   </button>
                 </div>
               </div>
@@ -172,6 +180,7 @@ export default {
       },
       error: null,
       editId: false,
+      loading: false,
       services: [],
       roles: [
         { code: 'ROLE_ADMIN', libelle: 'Administrateur' },
@@ -248,19 +257,23 @@ export default {
     this.editId = this.$route.query.id
     this.getServices()
     if (this.editId) {
-      await this.getMotif()
+      await this.getUser()
+      console.log('this.payload.roles ==>', this.payload.roles)
+      window
+        .$('#select2-basic')
+        .val({ code: 'ROLE_ADMIN', libelle: 'Administrateur' })
+        .trigger('change')
     }
-    this.payload.user_id = this.$auth.user.id
     this.setBreadcrumbs({
-      title: 'Motifs',
+      title: 'Utilisateurs',
       options: [
         {
           title: 'Accueil',
           url: '/',
         },
         {
-          title: 'Motif',
-          url: '/admin/motifs',
+          title: 'Utilisateurs',
+          url: '/admin/users',
         },
         {
           title: this.editId
@@ -274,29 +287,36 @@ export default {
     ...mapMutations({
       setBreadcrumbs: 'setBreadcrumbs',
     }),
-    handleForm() {
-      console.log('this.payload ==>', this.payload)
-      // try {
-      //   if (this.editId) {
-      //     await this.$axios.$put(`/motif/update/${this.editId}`, {
-      //       ...this.payload,
-      //     })
-      //   } else {
-      //     await this.$axios.$post('/motif/create', {
-      //       ...this.payload,
-      //     })
-      //   }
-      //   window.toastr.success('La liste des motifs a été mis à jour', {
-      //     positionClass: 'toast-top-right',
-      //   })
-      //   this.$router.push('/admin/motifs')
-      // } catch ({ response }) {
-      //   this.error = response.data
-      // }
-    },
-    async getMotif() {
+    async handleForm() {
       try {
-        this.payload = await this.$axios.$get(`/motif/show/${this.editId}`)
+        this.loading = true
+        if (this.editId) {
+          await this.$axios.$post(`/edit_profile/${this.editId}`, {
+            ...this.payload,
+          })
+        } else {
+          await this.$axios.$post('/register', {
+            ...this.payload,
+          })
+        }
+        window.toastr.success('La liste des utilisateurs a été mis à jour', {
+          positionClass: 'toast-top-right',
+        })
+        this.$router.push('/admin/users')
+      } catch ({ response }) {
+        if (response.status === 500) {
+          this.error = {
+            '': ['Une erreur serveur est survenue'],
+          }
+        } else {
+          this.error = response.data
+        }
+      }
+      this.loading = false
+    },
+    async getUser() {
+      try {
+        this.payload = await this.$axios.$get(`/users/${this.editId}`)
       } catch ({ response }) {
         this.error = response.data
       }
