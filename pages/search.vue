@@ -149,6 +149,8 @@ export default {
     return {
       payload: {},
       error: null,
+      suspectSearch: [],
+      table: null,
     }
   },
   head() {
@@ -204,7 +206,7 @@ export default {
       ],
     }
   },
-  async mounted() {
+  mounted() {
     this.setBreadcrumbs({
       title: 'Recherche',
       options: [
@@ -217,24 +219,42 @@ export default {
         },
       ],
     })
-    await this.$axios.$get('/suspects').then((suspects) => {
-      suspects = suspects.data.map((suspect) => {
-        return [
-          {
-            nom: suspect.nom,
-            prenom: suspect.prenom,
-            profession: suspect.profession,
-          },
-          { cc: 'SN', name: 'Sénégal' },
-          suspect.pseudonyme,
-          suspect.date_naissance,
-          suspect.lieu_naissance,
-          suspect.taille,
-          suspect.sexe === 'masculin' ? 'Masculin' : 'Feminin',
-          suspect.id,
-        ]
+    this.initTableau(this.suspectSearch)
+  },
+  methods: {
+    ...mapMutations({
+      setBreadcrumbs: 'setBreadcrumbs',
+      setActions: 'setActions',
+    }),
+    async handleForm() {
+      await this.$axios.$get('/suspects').then((suspects) => {
+        this.suspectSearch = suspects.data
+        // this.initTableau(this.suspectSearch)
+        this.table.clear()
+        this.table.rows
+          .add(
+            suspects.data.map((suspect) => {
+              return [
+                {
+                  nom: suspect.nom,
+                  prenom: suspect.prenom,
+                  profession: suspect.profession,
+                },
+                { cc: 'SN', name: 'Sénégal' },
+                suspect.pseudo,
+                suspect.date_naissance,
+                suspect.lieu_naissance,
+                suspect.taille,
+                suspect.sexe === 'masculin' ? 'Masculin' : 'Feminin',
+                suspect.id,
+              ]
+            })
+          )
+          .draw()
       })
-      window.$('#suspects').DataTable({
+    },
+    initTableau(suspects) {
+      this.table = window.$('#suspects').DataTable({
         language: {
           url: '/data/locales/fr-FR.json',
         },
@@ -251,7 +271,6 @@ export default {
               <span class="emp_name text-truncate fw-bold">${data.prenom} ${data.nom}</span><small class="emp_post text-truncate text-muted"> ${data.profession} </small></div></div>`
             },
           },
-
           {
             title: 'Nationalité',
             render({ cc, name }) {
@@ -263,7 +282,6 @@ export default {
           { title: 'Lieu de naissance' },
           { title: 'Taille (en M)' },
           { title: 'Genre' },
-
           {
             title: 'actions',
             render(id) {
@@ -288,14 +306,7 @@ export default {
           },
         ],
       })
-    })
-  },
-  methods: {
-    ...mapMutations({
-      setBreadcrumbs: 'setBreadcrumbs',
-      setActions: 'setActions',
-    }),
-    handleForm() {},
+    },
   },
 }
 </script>
