@@ -227,9 +227,9 @@ export default {
       setActions: 'setActions',
     }),
     async handleForm() {
-      await this.$axios.$get('/suspects').then((suspects) => {
+      const searchParams = new URLSearchParams(this.payload).toString()
+      await this.$axios.$get(`/suspects?${searchParams}`).then((suspects) => {
         this.suspectSearch = suspects.data
-        // this.initTableau(this.suspectSearch)
         this.table.clear()
         this.table.rows
           .add(
