@@ -105,13 +105,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    style="width: 170px"
-                  >
-                    Rechercher
-                  </button>
+                  <div class="col-4">
+                    <button type="submit" class="btn btn-primary">
+                      Rechercher
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -122,7 +120,7 @@
     <!-- Basic Inputs end -->
 
     <!-- Basic table -->
-    <section id="basic-datatable">
+    <!-- <section id="basic-datatable">
       <div class="row">
         <div class="col-12">
           <div class="card p-2">
@@ -134,8 +132,96 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!--/ Basic table -->
+    <section class="row">
+      <!-- User Sidebar -->
+      <div v-for="suspect in suspectSearch" :key="suspect.id" class="col-3">
+        <!-- User Card -->
+        <div class="card">
+          <div class="card-body p-1">
+            <div class="btn-group">
+              <a
+                id="dropdownMenuButton100"
+                href="#"
+                class="dropdown-toggle waves-effect"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i data-feather="more-vertical"></i>
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="dropdownMenuButton100"
+                style=""
+              >
+                <a class="dropdown-item" href="#">Option 1</a>
+                <a class="dropdown-item" href="#">Option 2</a>
+                <a class="dropdown-item" href="#">Option 3</a>
+              </div>
+            </div>
+            <div class="user-avatar-section">
+              <div class="d-flex align-items-center flex-column">
+                <img
+                  class="img-fluid rounded mb-2"
+                  src="/images/suspect.png"
+                  height="110"
+                  width="110"
+                  alt="User avatar"
+                />
+                <div class="user-info text-center">
+                  <h4>
+                    {{ suspect?.civilite }} {{ suspect?.prenom }}
+                    {{ suspect?.nom }}
+                  </h4>
+                  <span class="badge bg-light-secondary">{{
+                    suspect?.profession || 'Pas de profession'
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- <h4 class="fw-bolder border-bottom pb-50 my-2">Identité</h4> -->
+            <div class="info-container">
+              <ul class="list-unstyled">
+                <li class="mb-75">
+                  <span class="fw-bolder me-25">Alias:</span>
+                  <span> {{ suspect?.pseudo }} </span>
+                </li>
+                <li class="mb-75">
+                  <span class="fw-bolder me-25">Date de naissance:</span>
+                  <span> {{ suspect?.date_naissance }} </span>
+                </li>
+                <li class="mb-75">
+                  <span class="fw-bolder me-25">Lieu de naissance:</span>
+                  <span> {{ suspect?.lieu_naissance }} </span>
+                </li>
+                <li class="mb-75">
+                  <span class="fw-bolder me-25">Genre:</span>
+                  <span>{{ suspect?.sexe }}</span>
+                </li>
+              </ul>
+              <!-- <div class="d-flex justify-content-center pt-1">
+                <a
+                  :href="`/suspects/form?id=${suspect?.id}`"
+                  class="btn btn-primary me-1"
+                >
+                  Editer les informations
+                </a>
+                <a
+                  href="/signalisations/form?id"
+                  class="btn btn-outline-danger suspend-user"
+                >
+                  Créer une signalisation
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <!-- /User Card -->
+      </div>
+      <!--/ User Sidebar -->
+    </section>
   </div>
 </template>
 

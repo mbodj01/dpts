@@ -264,9 +264,7 @@ export default {
     }),
     async getSuspect() {
       try {
-        this.suspect = await this.$axios.$get(
-          `/suspect/detail/${this.suspectId}`
-        )
+        this.suspect = await this.$axios.$get(`/suspects/${this.suspectId}`)
       } catch ({ response }) {
         this.error = response.data
       }
