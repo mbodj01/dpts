@@ -6,12 +6,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <form
-                action="#"
-                class="needs-validation"
-                novalidate
-                @submit.prevent="handleForm"
-              >
+              <form action="#" @submit.prevent="handleForm">
                 <div v-if="error" class="row">
                   <div class="alert alert-danger" role="alert">
                     <div class="alert-body">
@@ -49,7 +44,6 @@
                     <input
                       id="prenom"
                       v-model="payload.prenom"
-                      required
                       type="text"
                       class="form-control"
                       placeholder="Enter un nouveau prenom"
@@ -63,7 +57,6 @@
                     <input
                       id="nom"
                       v-model="payload.nom"
-                      required
                       type="text"
                       class="form-control"
                       placeholder="Enter un nouveau nom"
@@ -94,7 +87,6 @@
                     <input
                       id="lieu_naissance"
                       v-model="payload.lieu_naissance"
-                      required
                       type="text"
                       class="form-control"
                       placeholder="Enter un nouveau lieu_naissance"
