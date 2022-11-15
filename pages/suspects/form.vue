@@ -499,7 +499,7 @@ export default {
     },
     async getSuspect() {
       try {
-        const data = await this.$axios.$get(`/suspect/detail/${this.editId}`)
+        const data = await this.$axios.$get(`/suspects/${this.editId}`)
         this.payload = {
           ...this.payload,
           ...data[0],

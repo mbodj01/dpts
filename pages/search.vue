@@ -108,6 +108,13 @@
                   <div class="col-4">
                     <button type="submit" class="btn btn-primary">
                       Rechercher
+                      <div
+                        v-if="loading"
+                        class="spinner-border spinner-border-sm spinner-grow-sm"
+                        role="status"
+                      >
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -149,16 +156,36 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i data-feather="more-vertical"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-more-vertical font-medium-3 cursor-pointer"
+                >
+                  <circle cx="12" cy="12" r="1"></circle>
+                  <circle cx="12" cy="5" r="1"></circle>
+                  <circle cx="12" cy="19" r="1"></circle>
+                </svg>
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="dropdownMenuButton100"
-                style=""
               >
-                <a class="dropdown-item" href="#">Option 1</a>
-                <a class="dropdown-item" href="#">Option 2</a>
-                <a class="dropdown-item" href="#">Option 3</a>
+                <a class="dropdown-item" :href="`/suspects/${suspect.id}`">
+                  Consulter la fiche
+                </a>
+                <a
+                  class="dropdown-item"
+                  :href="`/suspects/form?id=${suspect.id}`"
+                >
+                  Editer les informations
+                </a>
               </div>
             </div>
             <div class="user-avatar-section">
@@ -237,6 +264,7 @@ export default {
       error: null,
       suspectSearch: [],
       table: null,
+      loading: false,
     }
   },
   head() {
@@ -305,7 +333,9 @@ export default {
         },
       ],
     })
-    this.initTableau(this.suspectSearch)
+    if (window.feather) {
+      window.feather.replace({ width: 14, height: 14 })
+    }
   },
   methods: {
     ...mapMutations({
@@ -313,31 +343,18 @@ export default {
       setActions: 'setActions',
     }),
     async handleForm() {
+      this.loading = true
       const searchParams = new URLSearchParams(this.payload).toString()
-      await this.$axios.$get(`/suspects?${searchParams}`).then((suspects) => {
-        this.suspectSearch = suspects.data
-        this.table.clear()
-        this.table.rows
-          .add(
-            suspects.data.map((suspect) => {
-              return [
-                {
-                  nom: suspect.nom,
-                  prenom: suspect.prenom,
-                  profession: suspect.profession,
-                },
-                { cc: 'SN', name: 'Sénégal' },
-                suspect.pseudo,
-                suspect.date_naissance,
-                suspect.lieu_naissance,
-                suspect.taille,
-                suspect.sexe === 'masculin' ? 'Masculin' : 'Feminin',
-                suspect.id,
-              ]
-            })
-          )
-          .draw()
-      })
+      await this.$axios
+        .$get(`/suspects?${searchParams}`)
+        .then((suspects) => {
+          this.suspectSearch = suspects.data
+          this.loading = false
+        })
+        .catch((err) => {
+          console.log('err ==>', err)
+          this.loading = false
+        })
     },
     initTableau(suspects) {
       this.table = window.$('#suspects').DataTable({
