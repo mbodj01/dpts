@@ -47,7 +47,7 @@
                       v-model="payload.prenom"
                       type="text"
                       class="form-control"
-                      placeholder="Enter un nouveau prenom"
+                      placeholder="Enter le prénom"
                     />
                     <div v-if="error?.prenom" class="invalid-feedback">
                       {{ error?.prenom[0] }}
@@ -60,7 +60,7 @@
                       v-model="payload.nom"
                       type="text"
                       class="form-control"
-                      placeholder="Enter un nouveau nom"
+                      placeholder="Enter le nom"
                     />
                     <div v-if="error?.nom" class="invalid-feedback">
                       {{ error?.nom[0] }}
@@ -90,7 +90,7 @@
                       v-model="payload.lieu_naissance"
                       type="text"
                       class="form-control"
-                      placeholder="Enter un nouveau lieu_naissance"
+                      placeholder="Enter le lieu de naissance"
                     />
                     <div v-if="error?.lieu_naissance" class="invalid-feedback">
                       {{ error?.lieu_naissance[0] }}

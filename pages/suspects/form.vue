@@ -61,26 +61,10 @@
               <div class="row mb-1">
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="civility"> Civilité* </label>
-                    <select
-                      id="civility"
-                      v-model="payload.civilite"
-                      required
-                      class="form-select"
-                    >
-                      <option value="M.">M.</option>
-                      <option value="Mme">Mme</option>
-                      <option value="Mlle">Mlle</option>
-                    </select>
-                    <div v-if="error?.civilite" class="invalid-feedback">
-                      {{ error?.civilite[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
                     <label class="form-label" for="prenom">Prénom*</label>
                     <input
                       id="prenom"
-                      v-model="payload.prenom"
+                      v-model="payload.suspect.prenom"
                       required
                       type="text"
                       class="form-control"
@@ -94,7 +78,7 @@
                     <label class="form-label" for="nom">Nom*</label>
                     <input
                       id="nom"
-                      v-model="payload.nom"
+                      v-model="payload.suspect.nom"
                       required
                       type="text"
                       class="form-control"
@@ -105,12 +89,54 @@
                     </div>
                   </div>
                   <div class="mb-1">
+                    <label class="form-label" for="pseudo">Alias</label>
+                    <input
+                      id="pseudo"
+                      v-model="payload.suspect.pseudo"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter l'alias du mis en cause"
+                    />
+                    <div v-if="error?.pseudo" class="invalid-feedback">
+                      {{ error?.pseudo[0] }}
+                    </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for=""> Genre* </label>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="genre-m"
+                        v-model="payload.suspect.sexe"
+                        required
+                        value="H"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="genre-m">
+                        Masculin
+                      </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input
+                        id="genre-f"
+                        v-model="payload.suspect.sexe"
+                        required
+                        value="F"
+                        class="form-check-input"
+                        type="radio"
+                      />
+                      <label class="form-check-label" for="genre-f">
+                        Feminin
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mb-1">
                     <label class="form-label" for="date_naissance">
                       Date de naissance*
                     </label>
                     <input
                       id="date_naissance"
-                      v-model="payload.date_naissance"
+                      v-model="payload.suspect.date_naissance"
                       type="text"
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
@@ -120,12 +146,28 @@
                     </div>
                   </div>
                   <div class="mb-1">
+                    <client-only>
+                      <label class="form-label" for="select2-basic">
+                        Pays de naissance*
+                      </label>
+                      <select
+                        id="select2-basic"
+                        v-model="payload.suspect.pays_id"
+                        class="select2 form-select"
+                      >
+                        <option v-for="(p, i) in pays" :key="i" :value="p">
+                          {{ p }}
+                        </option>
+                      </select>
+                    </client-only>
+                  </div>
+                  <div class="mb-1">
                     <label class="form-label" for="lieu_naissance">
-                      Lieu de Naissance
+                      Lieu de Naissance*
                     </label>
                     <input
                       id="lieu_naissance"
-                      v-model="payload.lieu_naissance"
+                      v-model="payload.suspect.lieu_naissance"
                       type="text"
                       class="form-control"
                       placeholder="Enter le lieu de naissance du mis en cause"
@@ -141,7 +183,7 @@
                     <div class="form-check form-check-inline">
                       <input
                         id="senegalais"
-                        v-model="payload.senegalais"
+                        v-model="payload.suspect.is_senegalais"
                         required
                         :value="true"
                         class="form-check-input"
@@ -154,7 +196,7 @@
                     <div class="form-check form-check-inline">
                       <input
                         id="non-senegalais"
-                        v-model="payload.senegalais"
+                        v-model="payload.suspect.is_senegalais"
                         required
                         :value="false"
                         class="form-check-input"
@@ -165,62 +207,31 @@
                       >
                     </div>
                   </div>
-                  <div class="mb-1 d-flex flex-column">
-                    <label class="form-label" for="country"
-                      >Autre nationalité</label
-                    >
-                    <client-only placeholder="Chargement...">
-                      <vue-country-dropdown
-                        :immediate-call-select-event="true"
-                        :enabled-flags="true"
-                        :enabled-country-code="true"
-                        :show-name-input="true"
-                        :show-not-selected-option="true"
-                        @onSelect="onSelect"
-                      >
-                      </vue-country-dropdown>
-                    </client-only>
-                  </div>
                   <div class="mb-1">
-                    <label class="form-label" for="genre"> Genre* </label>
-                    <select
-                      id="genre"
-                      v-model="payload.sexe"
-                      required
-                      class="form-select"
-                    >
-                      <option value="masculin">Masculin</option>
-                      <option value="feminin">Feminin</option>
-                    </select>
-                    <div v-if="error?.sexe" class="invalid-feedback">
-                      {{ error?.sexe[0] }}
-                    </div>
-                    <div class="mb-1">
-                      <label class="form-label" for="adresse"
-                        >Lieu de résidence</label
+                    <client-only>
+                      <label class="form-label" for="select2-nationalite">
+                        Autre nationalité
+                      </label>
+                      <select
+                        id="select2-nationalite"
+                        v-model="payload.suspect.autres_nationalites"
+                        class="select2 form-select"
                       >
-                      <input
-                        id="adresse"
-                        v-model="payload.adresse"
-                        required
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter l'adresse du mis en cause"
-                      />
-                      <!-- <div v-if="error?.prenom" class="invalid-feedback">
-                      {{ error?.prenom[0] }}
-                    </div> -->
-                    </div>
+                        <option v-for="(p, i) in pays" :key="i" :value="p">
+                          {{ p }}
+                        </option>
+                      </select>
+                    </client-only>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="mb-1">
-                    <label class="form-label" for="prenom_pere"
-                      >Prénom du pére*</label
-                    >
+                    <label class="form-label" for="prenom_pere">
+                      Prénom du pére*
+                    </label>
                     <input
                       id="prenom_pere"
-                      v-model="payload.prenom_pere"
+                      v-model="payload.suspect.prenom_pere"
                       required
                       type="text"
                       class="form-control"
@@ -231,36 +242,33 @@
                     </div>
                   </div>
                   <div class="mb-1">
-                    <label class="form-label" for="prenom_mere"
-                      >Prénom de la mére*</label
-                    >
-                    <input
-                      id="prenom_mere"
-                      v-model="payload.prenom_mere"
-                      required
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter le prenom de la mére du mis en cause"
-                    />
-                    <div v-if="error?.prenom_mere" class="invalid-feedback">
-                      {{ error?.prenom_mere[0] }}
-                    </div>
-                  </div>
-                  <div class="mb-1">
                     <label class="form-label" for="nom_mere"
-                      >Nom de la mére*</label
+                      >Prénom et nom de la mére*</label
                     >
                     <input
                       id="nom_mere"
-                      v-model="payload.nom_mere"
+                      v-model="payload.suspect.nom_mere"
                       required
                       type="text"
                       class="form-control"
-                      placeholder="Enter le nom de la mére du mis en cause"
+                      placeholder="Enter le prénom et nom de la mére du mis en cause"
                     />
                     <div v-if="error?.nom_mere" class="invalid-feedback">
                       {{ error?.nom_mere[0] }}
                     </div>
+                  </div>
+                  <div class="mb-1">
+                    <label class="form-label" for="adresse">
+                      Lieu de résidence
+                    </label>
+                    <input
+                      id="adresse"
+                      v-model="payload.suspect.lieu_residence"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter l'adresse du mis en cause"
+                    />
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="formule"
@@ -268,7 +276,7 @@
                     >
                     <input
                       id="formule"
-                      v-model="payload.formule"
+                      v-model="payload.suspect.formule_decadactylaire"
                       required
                       type="text"
                       class="form-control"
@@ -280,9 +288,10 @@
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="taille">Taille*</label>
+                    <small class="text-muted"><i>en cm</i></small>
                     <input
                       id="taille"
-                      v-model="payload.taille"
+                      v-model="payload.suspect.taille"
                       required
                       type="text"
                       class="form-control"
@@ -294,9 +303,10 @@
                   </div>
                   <div class="mb-1">
                     <label class="form-label" for="masse">Masse*</label>
+                    <small class="text-muted"><i>en kg</i></small>
                     <input
                       id="masse"
-                      v-model="payload.masse"
+                      v-model="payload.suspect.masse"
                       required
                       type="text"
                       class="form-control"
@@ -312,7 +322,7 @@
                     >
                     <input
                       id="profession"
-                      v-model="payload.profession"
+                      v-model="payload.suspect.profession"
                       type="text"
                       required
                       class="form-control"
@@ -327,7 +337,7 @@
                     <label class="form-label" for="profession">Procédure</label>
                     <input
                       id="procedure"
-                      v-model="payload.procedure"
+                      v-model="payload.suspect.procedure"
                       type="text"
                       required
                       class="form-control"
@@ -341,7 +351,7 @@
                     <label class="form-label" for="created-at"> Le </label>
                     <input
                       id="created-at"
-                      v-model="payload.created_at"
+                      v-model="payload.suspect.created_at"
                       type="text"
                       class="form-control flatpickr-basic"
                       placeholder="YYYY-MM-DD"
@@ -378,19 +388,18 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import VueCountryDropdown from 'vue-country-dropdown'
 export default {
   name: 'FormSuspcets',
-  components: {
-    VueCountryDropdown,
-  },
   middleware: 'auth',
   data() {
     return {
       payload: {
-        senegalais: true,
+        suspect: {
+          is_senegalais: true,
+        },
         created_at: this.formatDate(Date.now()),
       },
+      pays: [],
       error: null,
       editId: false,
     }
@@ -419,6 +428,10 @@ export default {
           rel: 'stylesheet',
           href: '/css/plugins/forms/form-validation.css',
         },
+        {
+          rel: 'stylesheet',
+          href: '/css/forms/select/select2.min.css',
+        },
       ],
       script: [
         {
@@ -445,12 +458,21 @@ export default {
           src: '/js/scripts/forms/form-validation.js',
           defer: true,
         },
+        {
+          src: '/js/forms/select/select2.full.min.js',
+          defer: true,
+        },
+        {
+          src: '/js/scripts/forms/form-select2.min.js',
+          defer: true,
+        },
       ],
     }
   },
   computed: {},
   async mounted() {
     this.editId = this.$route.query.id
+    this.getPays()
     if (this.editId) {
       await this.getSuspect()
     }
@@ -479,6 +501,7 @@ export default {
       setBreadcrumbs: 'setBreadcrumbs',
     }),
     async handleForm() {
+      console.log('this.payload ==>', this.payload)
       try {
         if (this.editId) {
           await this.$axios.$put(`/suspect/update/${this.editId}`, {
@@ -507,6 +530,13 @@ export default {
         this.payload.created_at = this.formatDate(
           new Date(this.payload.created_at)
         )
+      } catch ({ response }) {
+        this.error = response?.data
+      }
+    },
+    async getPays() {
+      try {
+        this.pays = await this.$axios.$get(`/pays`)
       } catch ({ response }) {
         this.error = response?.data
       }
