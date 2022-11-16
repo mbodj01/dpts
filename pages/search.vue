@@ -19,7 +19,7 @@
                   </div>
                 </div>
                 <div class="row mb-2">
-                  <div class="col-2">
+                  <div class="col-md-4 col-sm-6 col-lg-3">
                     <label class="form-label" for="objet"> Objet* </label>
                     <select
                       id="objet"
@@ -27,11 +27,12 @@
                       required
                       class="form-select"
                     >
-                      <option value="CBVM">
+                      <option selected="">Objet de la recherche</option>
+                      <option value="cbvm">
                         CBVM: Certificat de Bonne Vie et Mœurs
                       </option>
-                      <option value="RC">RC: Recherche Criminelle</option>
-                      <option value="DRG">
+                      <option value="rc">RC: Recherche Criminelle</option>
+                      <option value="drg">
                         DRG: Demande de Renseignements Généraux
                       </option>
                     </select>
@@ -39,7 +40,7 @@
                       {{ error?.objet[0] }}
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-4 col-sm-6 col-lg-2">
                     <label class="form-label" for="prenom">Prénom</label>
                     <input
                       id="prenom"
@@ -52,7 +53,7 @@
                       {{ error?.prenom[0] }}
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-4 col-sm-6 col-lg-2">
                     <label class="form-label" for="nom">Nom</label>
                     <input
                       id="nom"
@@ -65,7 +66,7 @@
                       {{ error?.nom[0] }}
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-4 col-sm-6 col-lg-2">
                     <label class="form-label" for="date_naissance">
                       Date de naissance
                     </label>
@@ -80,7 +81,7 @@
                       {{ error?.date_naissance[0] }}
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-4 col-sm-6 col-lg-2">
                     <label class="form-label" for="lieu_naissance"
                       >Lieu de naissance</label
                     >
@@ -96,19 +97,28 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-4">
-                    <button type="submit" class="btn btn-primary">
-                      Rechercher
-                      <div
-                        v-if="loading"
-                        class="spinner-border spinner-border-sm spinner-grow-sm"
-                        role="status"
-                      >
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                    </button>
-                  </div>
+                <div class="row px-1">
+                  <button
+                    type="submit"
+                    class="btn btn-primary col-md-4 col-sm-6 col-lg-2 mx-1"
+                  >
+                    Rechercher
+                    <div
+                      v-if="loading"
+                      class="spinner-border spinner-border-sm spinner-grow-sm"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </button>
+
+                  <a
+                    v-if="payload.objet === 'rc'"
+                    href="/suspects/form"
+                    class="btn btn-warning col-md-4 col-sm-6 col-lg-2"
+                  >
+                    Ajouter un mise en cause
+                  </a>
                 </div>
               </form>
             </div>
@@ -116,70 +126,17 @@
         </div>
       </div>
     </section>
-    <!-- Basic Inputs end -->
 
-    <!-- Basic table -->
-    <!-- <section id="basic-datatable">
-      <div class="row">
-        <div class="col-12">
-          <div class="card p-2">
-            <table
-              id="suspects"
-              class="table datatables-basic"
-              width="100%"
-            ></table>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!--/ Basic table -->
     <section class="row">
       <!-- User Sidebar -->
-      <div v-for="suspect in suspectSearch" :key="suspect.id" class="col-3">
+      <div
+        v-for="suspect in suspectSearch"
+        :key="suspect.id"
+        class="col-md-4 col-sm-6 col-lg-3"
+      >
         <!-- User Card -->
         <div class="card">
-          <div class="card-body p-1">
-            <div class="btn-group">
-              <a
-                id="dropdownMenuButton100"
-                href="#"
-                class="dropdown-toggle waves-effect"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-more-vertical font-medium-3 cursor-pointer"
-                >
-                  <circle cx="12" cy="12" r="1"></circle>
-                  <circle cx="12" cy="5" r="1"></circle>
-                  <circle cx="12" cy="19" r="1"></circle>
-                </svg>
-              </a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="dropdownMenuButton100"
-              >
-                <a class="dropdown-item" :href="`/suspects/${suspect.id}`">
-                  Consulter la fiche
-                </a>
-                <a
-                  class="dropdown-item"
-                  :href="`/suspects/form?id=${suspect.id}`"
-                >
-                  Editer les informations
-                </a>
-              </div>
-            </div>
+          <a :href="`/suspects/${suspect.id}`" class="card-body p-1">
             <div class="user-avatar-section">
               <div class="d-flex align-items-center flex-column">
                 <img
@@ -200,7 +157,6 @@
                 </div>
               </div>
             </div>
-            <!-- <h4 class="fw-bolder border-bottom pb-50 my-2">Identité</h4> -->
             <div class="info-container">
               <ul class="list-unstyled">
                 <li class="mb-75">
@@ -220,22 +176,8 @@
                   <span>{{ suspect?.sexe }}</span>
                 </li>
               </ul>
-              <!-- <div class="d-flex justify-content-center pt-1">
-                <a
-                  :href="`/suspects/form?id=${suspect?.id}`"
-                  class="btn btn-primary me-1"
-                >
-                  Editer les informations
-                </a>
-                <a
-                  href="/signalisations/form?id"
-                  class="btn btn-outline-danger suspend-user"
-                >
-                  Créer une signalisation
-                </a>
-              </div> -->
             </div>
-          </div>
+          </a>
         </div>
         <!-- /User Card -->
       </div>
@@ -405,3 +347,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.info-container span {
+  color: #5e5873;
+}
+</style>
