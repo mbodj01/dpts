@@ -369,12 +369,48 @@
                     </span>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">
-                      {{ editId ? 'Modifier' : 'Soumettre' }}
-                    </button>
-                  </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-md-6 mb-1">
+                  <client-only>
+                    <label class="form-label" for="select2-multiple">
+                      Infractions
+                    </label>
+                    <select
+                      id="select2-multiple"
+                      class="select2 form-select"
+                      multiple
+                    >
+                      <option
+                        v-for="motif in motifs"
+                        :key="motif.id"
+                        :value="motif.id"
+                      >
+                        {{ motif.libelle }}
+                      </option>
+                    </select>
+                  </client-only>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="form-label" for="detail">
+                    Informations supplémentaires sur la signalisation
+                  </label>
+                  <textarea
+                    id="detail"
+                    v-model="payload.commentaire"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Informations supplémentaires sur la signalisation"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary">
+                    {{ editId ? 'Modifier' : 'Soumettre' }}
+                  </button>
                 </div>
               </div>
             </form>
@@ -397,9 +433,11 @@ export default {
         suspect: {
           is_senegalais: true,
         },
+        motif_ids: [],
         created_at: this.formatDate(Date.now()),
       },
       pays: [],
+      motifs: [],
       error: null,
       editId: false,
     }
@@ -473,6 +511,7 @@ export default {
   async mounted() {
     this.editId = this.$route.query.id
     this.getPays()
+    this.getMotifs().then(() => this.initSelect2Motifs())
     if (this.editId) {
       await this.getSuspect()
     }
@@ -541,6 +580,14 @@ export default {
         this.error = response?.data
       }
     },
+    async getMotifs() {
+      try {
+        const motifs = await this.$axios.$get(`/motifs`)
+        this.motifs = motifs.data
+      } catch ({ response }) {
+        this.error = response.data
+      }
+    },
     formatDate(d) {
       if (d) {
         const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(d)
@@ -551,6 +598,21 @@ export default {
     },
     onSelect({ name, iso2, dialCode }) {
       this.payload.nationalite = JSON.stringify({ cc: iso2, name })
+    },
+    initSelect2Motifs() {
+      window
+        .$('#select2-multiple')
+        .on('select2:select', (e) => {
+          if (!this.payload.motif_ids.includes(+e.params.data.id)) {
+            this.payload.motif_ids.push(+e.params.data.id)
+          }
+        })
+        .on('select2:unselecting', (e) => {
+          const index = this.payload.motif_ids.indexOf(+e.target.value)
+          if (index > -1) {
+            this.payload.motif_ids.splice(index, 1)
+          }
+        })
     },
   },
 }
